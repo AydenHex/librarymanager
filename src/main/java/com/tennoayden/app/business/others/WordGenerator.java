@@ -17,11 +17,29 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * The type Word generator.
+ */
 public class WordGenerator {
+    /**
+     * The Document.
+     */
     XWPFDocument document;
+    /**
+     * The Data.
+     */
     HashMap<Bibliotheque.Livre.Auteur, ArrayList<Bibliotheque.Livre>> data;
+    /**
+     * The Bookmark id.
+     */
     int bookmarkId;
 
+    /**
+     * Instantiates a new Word generator.
+     *
+     * @param path the path
+     * @throws Exception the exception
+     */
     public WordGenerator(String path) throws Exception {
         document = new XWPFDocument();
         data = BibliothequeService.getInstance().getLivresAuteurs();
@@ -42,6 +60,11 @@ public class WordGenerator {
         document.close();
     }
 
+    /**
+     * Create sommaire.
+     *
+     * @throws Exception the exception
+     */
     public void createSommaire() throws Exception {
         XWPFParagraph sommaire = document.createParagraph();
         sommaire.setAlignment(ParagraphAlignment.CENTER);
@@ -72,11 +95,20 @@ public class WordGenerator {
         hyperlinkrun.addCarriageReturn();
     }
 
+    /**
+     * Add page break.
+     */
     public void addPageBreak() {
         XWPFParagraph breakParagraph = document.createParagraph();
         breakParagraph.setPageBreak(true);
     }
 
+    /**
+     * Create book details.
+     *
+     * @throws IOException            the io exception
+     * @throws InvalidFormatException the invalid format exception
+     */
     public void createBookDetails() throws IOException, InvalidFormatException {
         XWPFParagraph detail = document.createParagraph();
 
@@ -142,6 +174,15 @@ public class WordGenerator {
         gardeRun.addCarriageReturn();
         gardeRun.setText("Rapport Ma Bibliotheque");
     }
+
+    /**
+     * Create hyperlink run to anchor xwpf hyperlink run.
+     *
+     * @param paragraph the paragraph
+     * @param anchor    the anchor
+     * @return the xwpf hyperlink run
+     * @throws Exception the exception
+     */
     static XWPFHyperlinkRun createHyperlinkRunToAnchor(XWPFParagraph paragraph, String anchor) throws Exception {
         CTHyperlink cthyperLink=paragraph.getCTP().addNewHyperlink();
         cthyperLink.setAnchor(anchor);
@@ -153,6 +194,14 @@ public class WordGenerator {
         );
     }
 
+    /**
+     * Create bookmarked paragraph xwpf paragraph.
+     *
+     * @param document   the document
+     * @param anchor     the anchor
+     * @param bookmarkId the bookmark id
+     * @return the xwpf paragraph
+     */
     static XWPFParagraph createBookmarkedParagraph(XWPFDocument document, String anchor, int bookmarkId) {
         XWPFParagraph paragraph = document.createParagraph();
         CTBookmark bookmark = paragraph.getCTP().addNewBookmarkStart();

@@ -3,14 +3,37 @@ package com.tennoayden.app.business.models;
 import javax.swing.filechooser.FileFilter;
 import java.io.File;
 
+/**
+ * The type Filtre.
+ */
 public class Filtre extends FileFilter {
+    /**
+     * The Les suffixes.
+     */
     String [] lesSuffixes;
+    /**
+     * The La description.
+     */
     String  laDescription;
+
+    /**
+     * Instantiates a new Filtre.
+     *
+     * @param lesSuffixes   the les suffixes
+     * @param laDescription the la description
+     */
     public Filtre(String []lesSuffixes,
                      String laDescription){
         this.lesSuffixes = lesSuffixes;
         this.laDescription = laDescription;
     }
+
+    /**
+     * Appartient boolean.
+     *
+     * @param suffixe the suffixe
+     * @return the boolean
+     */
     boolean appartient( String suffixe ){
         for( int i = 0; i<lesSuffixes.length; ++i)
             if(suffixe.equals(lesSuffixes[i]))

@@ -5,12 +5,20 @@ import com.tennoayden.app.business.services.BibliothequeService;
 
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * The type Table model.
+ */
 public class TableModel extends AbstractTableModel {
     private final Bibliotheque bibliotheque;
     private static final long serialVersionUID = 1L;
 
     private final String[] entetes = {"Titre", "Auteur","Année","Présentation","Status","Rangée","Colonne"};
 
+    /**
+     * Instantiates a new Table model.
+     *
+     * @param bibliotheque the bibliotheque
+     */
     public TableModel(Bibliotheque bibliotheque) {
         super();
         this.bibliotheque = BibliothequeService.getInstance().bibliotheque;

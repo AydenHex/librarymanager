@@ -7,3 +7,8 @@ before_install:
 language: java
 sudo: false
 script: mvn -Dmaven.test.skip=true package
+
+addons:
+  artifacts: true
+  paths:
+    - $HOME/target/libmanager-v3-1.0-SNAPSHOT-jar-with-dependencies.jar

@@ -7,6 +7,9 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 
+/**
+ * The type Home view.
+ */
 public class HomeView extends JFrame{
 
     //MenuBar
@@ -21,6 +24,12 @@ public class HomeView extends JFrame{
     private JTable jTable;
     private JScrollPane jScrollPane;
 
+    /**
+     * Instantiates a new Home view.
+     *
+     * @param titre      the titre
+     * @param modelTable the model table
+     */
     public HomeView(String titre, TableModel modelTable){
         // Set the frame
 
@@ -104,23 +113,71 @@ public class HomeView extends JFrame{
         jTable.repaint();
     }
 
+    /**
+     * Gets fichier ouvrir menu.
+     *
+     * @return the fichier ouvrir menu
+     */
     public JMenuItem getFichierOuvrirMenu() {
         return this.ouvrir;
     }
 
+    /**
+     * Gets edition ajouter livre.
+     *
+     * @return the edition ajouter livre
+     */
     public JMenuItem getEditionAjouterLivre() { return this.ajouterLivre; }
 
+    /**
+     * Gets informations.
+     *
+     * @return the informations
+     */
     public JMenuItem getInformations() { return informations; }
 
+    /**
+     * Gets table.
+     *
+     * @return the table
+     */
     public JTable getTable() {
         return jTable;
     }
 
+    /**
+     * Gets delete item.
+     *
+     * @return the delete item
+     */
     public JMenuItem getDeleteItem() { return deleteItem; }
+
+    /**
+     * Gets sauvegarder.
+     *
+     * @return the sauvegarder
+     */
     public JMenuItem getSauvegarder() { return this.sauvegarder; }
 
+    /**
+     * Gets sauvegarder sous.
+     *
+     * @return the sauvegarder sous
+     */
     public JMenuItem getSauvegarderSous() { return this.sauvegarderSous; }
+
+    /**
+     * Gets exporter.
+     *
+     * @return the exporter
+     */
     public JMenuItem getExporter() { return this.exporter; }
+
+    /**
+     * Gets fermer.
+     *
+     * @return the fermer
+     */
     public JMenuItem getFermer() { return this.fermer; }
 
 }

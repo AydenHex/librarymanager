@@ -20,9 +20,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Classe Java pour anonymous complex type.
- * 
+ *
  * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -63,8 +63,6 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -73,30 +71,33 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "bibliotheque")
 public class Bibliotheque {
 
+    /**
+     * The Livre.
+     */
     @XmlElement(required = true)
     protected List<Bibliotheque.Livre> livre;
 
     /**
      * Gets the value of the livre property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the livre property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getLivre().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Bibliotheque.Livre }
-     * 
-     * 
+     *
+     * @return the livre
      */
     public List<Bibliotheque.Livre> getLivre() {
         if (livre == null) {
@@ -108,9 +109,9 @@ public class Bibliotheque {
 
     /**
      * <p>Classe Java pour anonymous complex type.
-     * 
+     *
      * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -141,8 +142,6 @@ public class Bibliotheque {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -158,33 +157,57 @@ public class Bibliotheque {
     })
     public static class Livre {
 
+        /**
+         * The Titre.
+         */
         @XmlElement(required = true)
         protected String titre;
+        /**
+         * The Auteur.
+         */
         @XmlElement(required = true)
         protected Bibliotheque.Livre.Auteur auteur;
+        /**
+         * The Presentation.
+         */
         @XmlElement(required = true)
         protected String presentation;
+        /**
+         * The Parution.
+         */
         @XmlSchemaType(name = "unsignedShort")
         protected int parution;
+        /**
+         * The Colonne.
+         */
         @XmlSchemaType(name = "unsignedByte")
         protected short colonne;
+        /**
+         * The Rangee.
+         */
         @XmlSchemaType(name = "unsignedByte")
         protected short rangee;
+        /**
+         * The Url.
+         */
         @XmlElement(required = true)
         protected String url;
+        /**
+         * The Aqui.
+         */
         @XmlElement(required = true)
         protected String aqui;
+        /**
+         * The Status.
+         */
         @XmlElement(required = true)
         @XmlSchemaType(name = "string")
         protected StatusType status;
 
         /**
          * Obtient la valeur de la propriété titre.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *
+         * @return possible      object is     {@link String }
          */
         public String getTitre() {
             return titre;
@@ -192,11 +215,8 @@ public class Bibliotheque {
 
         /**
          * Définit la valeur de la propriété titre.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *
+         * @param value allowed object is     {@link String }
          */
         public void setTitre(String value) {
             this.titre = value;
@@ -204,11 +224,8 @@ public class Bibliotheque {
 
         /**
          * Obtient la valeur de la propriété auteur.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Bibliotheque.Livre.Auteur }
-         *     
+         *
+         * @return possible      object is     {@link Bibliotheque.Livre.Auteur }
          */
         public Bibliotheque.Livre.Auteur getAuteur() {
             return auteur;
@@ -216,11 +233,8 @@ public class Bibliotheque {
 
         /**
          * Définit la valeur de la propriété auteur.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Bibliotheque.Livre.Auteur }
-         *     
+         *
+         * @param value allowed object is     {@link Bibliotheque.Livre.Auteur }
          */
         public void setAuteur(Bibliotheque.Livre.Auteur value) {
             this.auteur = value;
@@ -228,11 +242,8 @@ public class Bibliotheque {
 
         /**
          * Obtient la valeur de la propriété presentation.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *
+         * @return possible      object is     {@link String }
          */
         public String getPresentation() {
             return presentation;
@@ -240,11 +251,8 @@ public class Bibliotheque {
 
         /**
          * Définit la valeur de la propriété presentation.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *
+         * @param value allowed object is     {@link String }
          */
         public void setPresentation(String value) {
             this.presentation = value;
@@ -252,7 +260,8 @@ public class Bibliotheque {
 
         /**
          * Obtient la valeur de la propriété parution.
-         * 
+         *
+         * @return the parution
          */
         public int getParution() {
             return parution;
@@ -260,7 +269,8 @@ public class Bibliotheque {
 
         /**
          * Définit la valeur de la propriété parution.
-         * 
+         *
+         * @param value the value
          */
         public void setParution(int value) {
             this.parution = value;
@@ -268,7 +278,8 @@ public class Bibliotheque {
 
         /**
          * Obtient la valeur de la propriété colonne.
-         * 
+         *
+         * @return the colonne
          */
         public short getColonne() {
             return colonne;
@@ -276,7 +287,8 @@ public class Bibliotheque {
 
         /**
          * Définit la valeur de la propriété colonne.
-         * 
+         *
+         * @param value the value
          */
         public void setColonne(short value) {
             this.colonne = value;
@@ -284,7 +296,8 @@ public class Bibliotheque {
 
         /**
          * Obtient la valeur de la propriété rangee.
-         * 
+         *
+         * @return the rangee
          */
         public short getRangee() {
             return rangee;
@@ -292,7 +305,8 @@ public class Bibliotheque {
 
         /**
          * Définit la valeur de la propriété rangee.
-         * 
+         *
+         * @param value the value
          */
         public void setRangee(short value) {
             this.rangee = value;
@@ -300,11 +314,8 @@ public class Bibliotheque {
 
         /**
          * Obtient la valeur de la propriété url.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *
+         * @return possible      object is     {@link String }
          */
         public String getUrl() {
             return url;
@@ -312,11 +323,8 @@ public class Bibliotheque {
 
         /**
          * Définit la valeur de la propriété url.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *
+         * @param value allowed object is     {@link String }
          */
         public void setUrl(String value) {
             this.url = value;
@@ -324,11 +332,8 @@ public class Bibliotheque {
 
         /**
          * Obtient la valeur de la propriété aqui.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *
+         * @return possible      object is     {@link String }
          */
         public String getAqui() {
             return aqui;
@@ -336,11 +341,8 @@ public class Bibliotheque {
 
         /**
          * Définit la valeur de la propriété aqui.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *
+         * @param value allowed object is     {@link String }
          */
         public void setAqui(String value) {
             this.aqui = value;
@@ -348,11 +350,8 @@ public class Bibliotheque {
 
         /**
          * Obtient la valeur de la propriété status.
-         * 
-         * @return
-         *     possible object is
-         *     {@link StatusType }
-         *     
+         *
+         * @return possible      object is     {@link StatusType }
          */
         public StatusType getStatus() {
             return status;
@@ -360,11 +359,8 @@ public class Bibliotheque {
 
         /**
          * Définit la valeur de la propriété status.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link StatusType }
-         *     
+         *
+         * @param value allowed object is     {@link StatusType }
          */
         public void setStatus(StatusType value) {
             this.status = value;
@@ -373,9 +369,9 @@ public class Bibliotheque {
 
         /**
          * <p>Classe Java pour anonymous complex type.
-         * 
+         *
          * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
-         * 
+         *
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -388,8 +384,6 @@ public class Bibliotheque {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -398,18 +392,21 @@ public class Bibliotheque {
         })
         public static class Auteur {
 
+            /**
+             * The Nom.
+             */
             @XmlElement(required = true)
             protected String nom;
+            /**
+             * The Prenom.
+             */
             @XmlElement(required = true)
             protected String prenom;
 
             /**
              * Obtient la valeur de la propriété nom.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *
+             * @return possible      object is     {@link String }
              */
             public String getNom() {
                 return nom;
@@ -417,11 +414,8 @@ public class Bibliotheque {
 
             /**
              * Définit la valeur de la propriété nom.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *
+             * @param value allowed object is     {@link String }
              */
             public void setNom(String value) {
                 this.nom = value;
@@ -429,11 +423,8 @@ public class Bibliotheque {
 
             /**
              * Obtient la valeur de la propriété prenom.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *
+             * @return possible      object is     {@link String }
              */
             public String getPrenom() {
                 return prenom;
@@ -441,11 +432,8 @@ public class Bibliotheque {
 
             /**
              * Définit la valeur de la propriété prenom.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *
+             * @param value allowed object is     {@link String }
              */
             public void setPrenom(String value) {
                 this.prenom = value;

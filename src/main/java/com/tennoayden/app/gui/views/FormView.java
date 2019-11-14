@@ -11,6 +11,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
 
+/**
+ * The type Form view.
+ */
 public class FormView extends JDialog{
     private JLabel titreLabel, auteurLabel, resumeLabel, parutionLabel, rangeeLabel, colonneLabel, statusLabel, aQuiLabel, imageLabel;
     private JTextField titre, auteurPrenom, auteurNom, parution, rangee, colonne, aQui, image;
@@ -23,6 +26,13 @@ public class FormView extends JDialog{
     private Font font;
     private JButton appliquer;
 
+    /**
+     * Instantiates a new Form view.
+     *
+     * @param parent    the parent
+     * @param titreForm the titre form
+     * @throws IOException the io exception
+     */
     public FormView(JFrame parent, String titreForm) throws IOException {
         super(parent, titreForm);
         // Set common var
@@ -88,6 +98,9 @@ public class FormView extends JDialog{
         pack();
     }
 
+    /**
+     * Place components.
+     */
     public void placeComponents() {
         c.gridx = 0;
         c.gridy = 0;
@@ -188,71 +201,214 @@ public class FormView extends JDialog{
         add(new JLabel(imageIcon), BorderLayout.SOUTH);
     }
 
+    /**
+     * Gets titre.
+     *
+     * @return the titre
+     */
     public String getTitre() {
         return titre.getText();
     }
+
+    /**
+     * Sets titre.
+     *
+     * @param titre the titre
+     */
     public void setTitre(String titre) {
         this.titre.setText(titre);
     }
+
+    /**
+     * Gets auteur prenom.
+     *
+     * @return the auteur prenom
+     */
     public String getAuteurPrenom() {
         return auteurPrenom.getText();
     }
+
+    /**
+     * Sets auteur prenom.
+     *
+     * @param prenom the prenom
+     */
     public void setAuteurPrenom(String prenom) {
         this.auteurPrenom.setText(prenom);
     }
+
+    /**
+     * Gets auteur nom.
+     *
+     * @return the auteur nom
+     */
     public String getAuteurNom() {
         return auteurNom.getText();
     }
+
+    /**
+     * Sets auteur nom.
+     *
+     * @param nom the nom
+     */
     public void setAuteurNom(String nom) {
         this.auteurNom.setText(nom);
     }
+
+    /**
+     * Gets resume.
+     *
+     * @return the resume
+     */
     public String getResume() {
         return resume.getText();
     }
+
+    /**
+     * Sets resume.
+     *
+     * @param resume the resume
+     */
     public void setResume(String resume) {
         this.resume.setText(resume);
     }
+
+    /**
+     * Gets parution.
+     *
+     * @return the parution
+     */
     public Integer getParution() {
         return Integer.parseInt(parution.getText());
     }
+
+    /**
+     * Sets parution.
+     *
+     * @param parution the parution
+     */
     public void setParution(Integer parution) {
         this.parution.setText(Integer.toString(parution));
     }
+
+    /**
+     * Gets rangee.
+     *
+     * @return the rangee
+     */
     public Short getRangee() {
         return Short.parseShort(rangee.getText());
     }
+
+    /**
+     * Sets rangee.
+     *
+     * @param rangee the rangee
+     */
     public void setRangee(Short rangee) {
         this.rangee.setText(Short.toString(rangee));
     }
+
+    /**
+     * Gets colonne.
+     *
+     * @return the colonne
+     */
     public Short getColonne() {
         return Short.parseShort(colonne.getText());
     }
+
+    /**
+     * Sets colonne.
+     *
+     * @param colonne the colonne
+     */
     public void setColonne(Short colonne) {
         this.colonne.setText(Short.toString(colonne));
     }
+
+    /**
+     * Gets status.
+     *
+     * @return the status
+     */
     public StatusType getStatus() {
         return StatusType.valueOf(status.getSelectedItem().toString());
     }
+
+    /**
+     * Sets status.
+     *
+     * @param status the status
+     */
     public void setStatus(StatusType status) {
         this.status.setSelectedItem(status);
     }
+
+    /**
+     * Gets a qui.
+     *
+     * @return the a qui
+     */
     public String getAQui() {
         return aQui.getText();
     }
+
+    /**
+     * Sets a qui.
+     *
+     * @param aQui the a qui
+     */
     public void setAQui(String aQui) {
         this.aQui.setText(aQui);
     }
+
+    /**
+     * Gets button.
+     *
+     * @return the button
+     */
     public JButton getButton() {
         return this.appliquer;
     }
+
+    /**
+     * Gets aqui field.
+     *
+     * @return the aqui field
+     */
     public JTextField getAquiField() {
         return this.aQui;
     }
+
+    /**
+     * Gets status field.
+     *
+     * @return the status field
+     */
     public JComboBox getStatusField() {
         return this.status;
     }
+
+    /**
+     * Gets image icon.
+     *
+     * @return the image icon
+     */
     public ImageIcon getImageIcon() { return this.imageIcon; }
+
+    /**
+     * Gets url.
+     *
+     * @return the url
+     */
     public String getURL() { return this.image.getText(); }
+
+    /**
+     * Sets url.
+     *
+     * @param image the image
+     */
     public void setURL(String image) { this.image.setText(image);}
 
 }

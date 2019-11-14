@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Classe Java pour statusType.
- * 
+ *
  * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
  * <p>
  * <pre>
@@ -26,20 +26,39 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
- * 
  */
 @XmlType(name = "statusType")
 @XmlEnum
 public enum StatusType {
 
+    /**
+     * Acquis status type.
+     */
     ACQUIS,
+    /**
+     * Pret status type.
+     */
     PRET,
+    /**
+     * Prete status type.
+     */
     PRETE;
 
+    /**
+     * Value string.
+     *
+     * @return the string
+     */
     public String value() {
         return name();
     }
 
+    /**
+     * From value status type.
+     *
+     * @param v the v
+     * @return the status type
+     */
     public static StatusType fromValue(String v) {
         return valueOf(v);
     }

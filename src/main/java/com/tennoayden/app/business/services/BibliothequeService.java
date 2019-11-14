@@ -12,11 +12,17 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * The type Bibliotheque service.
+ */
 public class BibliothequeService
 {
     // static variable single_instance of type State
     private static BibliothequeService single_instance = null;
 
+    /**
+     * The Bibliotheque.
+     */
     public Bibliotheque bibliotheque;
 
     // private constructor restricted to this class itself
@@ -26,7 +32,12 @@ public class BibliothequeService
 
     }
 
-    // static method to create instance of Singleton class
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
+// static method to create instance of Singleton class
     public static BibliothequeService getInstance()
     {
         if (single_instance == null)
@@ -35,6 +46,12 @@ public class BibliothequeService
         return single_instance;
     }
 
+    /**
+     * Load livre.
+     *
+     * @param path the path
+     * @throws JAXBException the jaxb exception
+     */
     public static void loadLivre(String path) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -50,6 +67,13 @@ public class BibliothequeService
         }
 
     }
+
+    /**
+     * Sauvegarder livre.
+     *
+     * @param path the path
+     * @throws JAXBException the jaxb exception
+     */
     public void sauvegarderLivre(String path) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
@@ -59,6 +83,12 @@ public class BibliothequeService
         //Marshal the employees list in file
         jaxbMarshaller.marshal(this.bibliotheque, new File(path));
     }
+
+    /**
+     * Gets livres auteurs.
+     *
+     * @return the livres auteurs
+     */
     public HashMap<Bibliotheque.Livre.Auteur, ArrayList<Bibliotheque.Livre>> getLivresAuteurs() {
         HashMap<Bibliotheque.Livre.Auteur, ArrayList<Bibliotheque.Livre>> col = new HashMap<>();
         for (Bibliotheque.Livre livre: this.bibliotheque.getLivre()) {

@@ -15,12 +15,34 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+/**
+ * The type Form controller.
+ */
 public class FormController {
+    /**
+     * The View.
+     */
     FormView view;
+    /**
+     * The Model.
+     */
     Bibliotheque.Livre model;
+    /**
+     * The Of.
+     */
     ObjectFactory of;
+    /**
+     * The Hc.
+     */
     HomeController hc;
 
+    /**
+     * Instantiates a new Form controller.
+     *
+     * @param titre          the titre
+     * @param homeController the home controller
+     * @throws IOException the io exception
+     */
     public FormController(String titre, HomeController homeController) throws IOException {
         of = new ObjectFactory();
         view = new FormView(homeController.view, titre);
@@ -28,6 +50,15 @@ public class FormController {
         hc = homeController;
         initController();
     }
+
+    /**
+     * Instantiates a new Form controller.
+     *
+     * @param titre          the titre
+     * @param homeController the home controller
+     * @param livre          the livre
+     * @throws IOException the io exception
+     */
     public FormController(String titre, HomeController homeController, Bibliotheque.Livre livre) throws IOException {
         of = new ObjectFactory();
         view = new FormView(homeController.view, titre);
@@ -36,6 +67,10 @@ public class FormController {
         initController();
         initView();
     }
+
+    /**
+     * Init view.
+     */
     public void initView() {
         this.view.setTitre(model.getTitre());
         this.view.setAuteurPrenom(model.getAuteur().getPrenom());
@@ -55,6 +90,9 @@ public class FormController {
 
     }
 
+    /**
+     * Init controller.
+     */
     public void initController() {
         view.getButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -67,6 +105,10 @@ public class FormController {
             }
         });
     }
+
+    /**
+     * Toggle a qui.
+     */
     public void toggleAQui() {
         if (view.getStatusField().getSelectedItem() == StatusType.PRETE) {
             view.getAquiField().setEnabled(true);
@@ -75,6 +117,11 @@ public class FormController {
         }
     }
 
+    /**
+     * Validate form boolean.
+     *
+     * @return the boolean
+     */
     public Boolean validateForm() {
         if (view.getTitre().isEmpty() ||
             view.getAuteurNom().isEmpty() ||
@@ -93,6 +140,10 @@ public class FormController {
         }
         return true;
     }
+
+    /**
+     * Creer livre.
+     */
     public void creerLivre() {
         if (this.validateForm()) {
             Bibliotheque.Livre.Auteur auteur= of.createBibliothequeLivreAuteur();

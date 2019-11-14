@@ -5,11 +5,22 @@ import com.tennoayden.app.gui.views.InfoView;
 
 import java.io.IOException;
 
+/**
+ * The type Info controler.
+ */
 public class InfoControler {
         private InfoModel infoModel;
         private InfoView infoView;
 
-        public InfoControler(InfoModel infoModel, InfoView infoView, HomeController homeController) throws IOException {
+    /**
+     * Instantiates a new Info controler.
+     *
+     * @param infoModel      the info model
+     * @param infoView       the info view
+     * @param homeController the home controller
+     * @throws IOException the io exception
+     */
+    public InfoControler(InfoModel infoModel, InfoView infoView, HomeController homeController) throws IOException {
             this.infoModel=infoModel;
             this.infoView=infoView;
 
