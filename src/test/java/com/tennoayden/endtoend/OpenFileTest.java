@@ -33,7 +33,7 @@ public class OpenFileTest extends AssertJSwingTestCaseTemplate {
     @Test
     public void testOuvrirXML() {
         this.frame.menuItemWithPath("Fichier", "Ouvrir").click();
-        this.frame.fileChooser().selectFile(new File(""));
+        this.frame.fileChooser().selectFile(new File("Biblio.xml"));
         this.frame.fileChooser().approve();
         this.frame.table().requireRowCount(3);
     }
