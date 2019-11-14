@@ -33,7 +33,7 @@ public class OpenFileTest extends AssertJSwingTestCaseTemplate {
     @Test
     public void testOuvrirXML() {
         this.frame.menuItemWithPath("Fichier", "Ouvrir").click();
-        this.frame.fileChooser().selectFile(new File("Biblio.xml"));
+        this.frame.fileChooser().selectFile(new File(" /home/travis/build/AydenHex/librarymanager/Biblio.xml"));
         this.frame.fileChooser().approve();
         this.frame.table().requireRowCount(3);
     }
@@ -41,7 +41,7 @@ public class OpenFileTest extends AssertJSwingTestCaseTemplate {
     @Test
     public void testOuvrirMauvaisFichier() {
         this.frame.menuItemWithPath("Fichier", "Ouvrir").click();
-        this.frame.fileChooser().selectFile(new File("bad_biblio.tal"));
+        this.frame.fileChooser().selectFile(new File(" /home/travis/build/AydenHex/librarymanager/bad_biblio.tal"));
         this.frame.fileChooser().approve();
         this.frame.table().requireRowCount(0);
         this.frame.optionPane().requireErrorMessage();
