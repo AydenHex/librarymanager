@@ -39,7 +39,7 @@ public class SauvegardeTest extends AssertJSwingTestCaseTemplate {
 
     @Test
     public void sauvegardeNominal() {
-        ConfigService.getInstance().path = "/home/ayden/projets/libmanager-v3/test.xml";
+        ConfigService.getInstance().path = "test.xml";
         ConfigService.getInstance().modification = true;
 
         this.frame.menuItemWithPath("Edition", "Sauvegarder...").click();
