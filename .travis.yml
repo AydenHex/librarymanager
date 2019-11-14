@@ -1,17 +1,17 @@
 dist: xenial
 services:
-  - xvfb
+- xvfb
 before_install:
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
-
+- "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile
+  --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 language: java
 sudo: false
 script:
-  - mvn -Dmaven.test.skip=true package
-
+- mvn -Dmaven.test.skip=true package
 deploy:
   provider: releases
-  user: "aydenhex"
-  password: "$pass"
-  file: "target/libmanager-v3-1.0-SNAPSHOT-jar-with-dependencies.jar"
-  skip_cleanup: true
+  api_key:
+    secure: 1eDJN79RaNaueTr2QDb+E0N2gn5fdDUb5F/94IXN4hbXx88AIH+tHvFIcHRqkfV1IgphmixR768+nSkaHjXcGsMlYxmlZVoLx3dE5x32GF482A+Y8Lnjnx81s64Z30D+dRaUQX/x4jE5i9tnIptr2Cebrn12oiJ48hXHDbFA2w/P6GwyqyrLnX4oz6ALSQY0/1/2jrcM8aKIcAFblnjE46CAPLtI1Ax7X1G55dKbzvmhVBkWuartHnuGhltHa40obKfvXbPV+bWpwt33dK3ALnzQ0VJyocbVDeuXmED2t2ThSKuPUOC6zyJYb9o1Si3SSrzXfSaYubLg92eMNcBsuWkTJib2XhRvPgBnYkOmu90Pmt3WYn4+acoSqKBUVPLkQ/JTmWO96QgV9SnfaWnvDtaI/JqbD83UR1ouQeLuevpD5bnkfZQbW68qxAlH06hZyQoj3TumziPpSPK+V9G3F9e4QzTzYk17v3ssHpMgLg9UwMs1jJH+TLm/wrQSIRqE8dTk+H3FuptVJnlD8Nx3vwap4rPR8+V3/v7GGF7n66QclIRXQlYxUADZH6aFWLfyp1imMlS30PCx/VV4muH6Lj+JcmD8QH+w/rA/3orZ0vlhVwt/7FNf0C49EI6zFdZyTL2V5xw3u9OOI012j3aHqQ7G5sKI0hCJxGod0YK6zF8=
+  file: target/libmanager-v3-1.0-SNAPSHOT-jar-with-dependencies.jar
+  on:
+    repo: AydenHex/librarymanager
