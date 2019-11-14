@@ -8,7 +8,9 @@ language: java
 sudo: false
 script: mvn -Dmaven.test.skip=true package
 
-addons:
-  artifacts: true
-  paths:
-    - $HOME/target/libmanager-v3-1.0-SNAPSHOT-jar-with-dependencies.jar
+
+deploy:
+  provider: releases
+  api_key: "dd81ce03aec00497283acd2722890acd4f39624d"
+  file: "target/libmanager-v3-1.0-SNAPSHOT-jar-with-dependencies.jar"
+  skip_cleanup: true
