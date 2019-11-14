@@ -6,12 +6,13 @@ before_install:
 
 language: java
 sudo: false
-script: mvn -Dmaven.test.skip=true package
-
+script:
+  - mvn -Dmaven.test.skip=true package
+  - travis encrypt MY_SECRET_ENV=8fe8149945616cf56ac35eb3d7c72ba64c7683c2 --add env.global
 
 deploy:
   provider: releases
   api_key:
-    secure: "8fe8149945616cf56ac35eb3d7c72ba64c7683c2"
+    secure: "$MY_SECRET_ENV"
   file: "target/libmanager-v3-1.0-SNAPSHOT-jar-with-dependencies.jar"
   skip_cleanup: true
