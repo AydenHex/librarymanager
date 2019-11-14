@@ -12,7 +12,7 @@ script:
 
 deploy:
   provider: releases
-  api_key:
-    secure: "$MY_SECRET_ENV"
+  user: "aydenhex"
+  password: "$pass"
   file: "target/libmanager-v3-1.0-SNAPSHOT-jar-with-dependencies.jar"
   skip_cleanup: true
