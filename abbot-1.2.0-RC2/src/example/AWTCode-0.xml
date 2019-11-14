@@ -1,4 +1,0 @@
-<AWTTestScript desc="Sample AWT Code">
-  <launch classpath="lib/example.jar" args="[]" class="example.AWTCode" method="main"/>
-  <terminate/>
-</AWTTestScript>
