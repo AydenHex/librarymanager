@@ -11,6 +11,6 @@ script: mvn -Dmaven.test.skip=true package
 
 deploy:
   provider: releases
-  api_key: "dd81ce03aec00497283acd2722890acd4f39624d"
+  api_key: "a18eee6349ca9b6f3a48d8e022f5fa681fa4d5b0"
   file: "target/libmanager-v3-1.0-SNAPSHOT-jar-with-dependencies.jar"
   skip_cleanup: true
