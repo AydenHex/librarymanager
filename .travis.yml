@@ -8,7 +8,6 @@ language: java
 sudo: false
 script:
   - mvn -Dmaven.test.skip=true package
-  - travis encrypt MY_SECRET_ENV=8fe8149945616cf56ac35eb3d7c72ba64c7683c2 --add env.global
 
 deploy:
   provider: releases
