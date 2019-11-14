@@ -2,4 +2,4 @@
 libmanager-v3.iml
 libmanager-v3.ipr
 libmanager-v3.iws
-.target/
+.target/*
