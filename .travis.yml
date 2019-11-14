@@ -7,7 +7,7 @@ before_install:
 language: java
 sudo: false
 script:
-- mvn -Dmaven.test.skip=true package
+- mvn -Dmaven.test.skip=true install
 deploy:
   provider: releases
   api_key:

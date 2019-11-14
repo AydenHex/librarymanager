@@ -38,6 +38,14 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <excludePackageNames>com.tennoayden.app.business.models</excludePackageNames>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <name>libmanager-v3</name>
