@@ -15,5 +15,6 @@ deploy:
   file:
     - AydenHex/librarymanager/target/libmanager-v3-1.0-SNAPSHOT-jar-with-dependencies.jar
     - AydenHex/librarymanager/target/site
+  skip_cleanup: true
   on:
     repo: AydenHex/librarymanager
