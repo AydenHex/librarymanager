@@ -3,6 +3,9 @@ package com.tennoayden.app.business.services;
 
 import com.tennoayden.app.business.models.Bibliotheque;
 import com.tennoayden.app.business.models.ObjectFactory;
+import com.tennoayden.app.gui.controllers.FormController;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -17,6 +20,8 @@ import java.util.HashMap;
  */
 public class BibliothequeService
 {
+    private static final Logger logger = Logger.getLogger(BibliothequeService.class);
+
     // static variable single_instance of type State
     private static BibliothequeService single_instance = null;
 
@@ -82,6 +87,8 @@ public class BibliothequeService
 
         //Marshal the employees list in file
         jaxbMarshaller.marshal(this.bibliotheque, new File(path));
+
+        logger.log(Level.INFO, String.format("The user %s saved the bookcase !"));
     }
 
     /**

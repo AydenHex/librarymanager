@@ -1,12 +1,16 @@
 package com.tennoayden.app.gui.controllers;
 
+import com.tennoayden.app.App;
 import com.tennoayden.app.business.models.Bibliotheque;
 import com.tennoayden.app.business.models.ObjectFactory;
 import com.tennoayden.app.business.models.StatusType;
+import com.tennoayden.app.business.services.AuthService;
 import com.tennoayden.app.business.services.BibliothequeService;
 import com.tennoayden.app.business.services.ConfigService;
 import com.tennoayden.app.gui.views.FormView;
 import com.tennoayden.app.gui.views.HomeView;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
 //import sun.misc.FormattedFloatingDecimal;
 
 import javax.swing.*;
@@ -14,11 +18,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.Normalizer;
 
 /**
  * The type Form controller.
  */
 public class FormController {
+
+    private static final Logger logger = Logger.getLogger(FormController.class);
+
     /**
      * The View.
      */
@@ -104,6 +112,9 @@ public class FormController {
                 toggleAQui();
             }
         });
+        if (!AuthService.getInstance().currentUser.getRole().equals("admin")) {
+            view.getButton().setEnabled(false);
+        }
     }
 
     /**
@@ -162,7 +173,9 @@ public class FormController {
 
             if (view.getTitle() == "Ajouter un livre") {
                 BibliothequeService.getInstance().bibliotheque.getLivre().add(model);
-                System.out.println(BibliothequeService.getInstance().bibliotheque.getLivre());
+                logger.log(Level.INFO, String.format("The user %s has added the book : %s", AuthService.getInstance().currentUser.getUsername(), model.getTitre()));
+            } else {
+                logger.log(Level.INFO, String.format("The user %s has updated the book :%s", AuthService.getInstance().currentUser.getUsername(), model.getTitre()));
             }
             view.dispose();
             hc.reloadTable();
