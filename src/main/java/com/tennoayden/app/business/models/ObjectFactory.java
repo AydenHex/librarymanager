@@ -61,4 +61,18 @@ public class ObjectFactory {
         return new Bibliotheque.Livre.Auteur();
     }
 
+    /**
+     * Create an instance of {@link UserManager}
+     *
+     * @return the usermanager
+     */
+    public UserManager createUserManager() { return new UserManager(); }
+
+    /**
+     * Create an instance of {@link User}
+     *
+     * @return the user
+     */
+    public User createUser() { return new User(); }
+
 }

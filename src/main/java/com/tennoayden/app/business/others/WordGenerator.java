@@ -9,10 +9,7 @@ import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.*;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -127,10 +124,16 @@ public class WordGenerator {
                 runLivre.setText("Parution : " + livre.getParution());
                 runLivre.addCarriageReturn();
                 if (livre.getUrl() != null) {
-                    FileInputStream is = new FileInputStream(livre.getUrl());
-                    runLivre.addBreak();
-                    runLivre.addPicture(is, XWPFDocument.PICTURE_TYPE_JPEG, livre.getUrl(), Units.toEMU(100), Units.toEMU(100)); // 200x200 pixels
-                    is.close();
+                    try {
+                        FileInputStream is = new FileInputStream(livre.getUrl());
+                        runLivre.addBreak();
+                        runLivre.addPicture(is, XWPFDocument.PICTURE_TYPE_JPEG, livre.getUrl(), Units.toEMU(100), Units.toEMU(100)); // 200x200 pixels
+                        is.close();
+                    }
+                    catch (FileNotFoundException fe) {
+                        runLivre.addBreak();
+                        runLivre.setText("Image not found");
+                    }
                 }
                 // TO DO: Complete image inclusion
             }

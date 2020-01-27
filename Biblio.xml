@@ -38,5 +38,7 @@
         <parution>2001</parution>
         <colonne>5</colonne>
         <rangee>2</rangee>
+        <status>ACQUIS</status>
+        <aqui></aqui>
     </livre>
 </bibliotheque>

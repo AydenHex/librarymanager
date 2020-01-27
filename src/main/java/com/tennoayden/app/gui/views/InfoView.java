@@ -27,7 +27,6 @@ public class InfoView extends JDialog {
         this.setSize(new Dimension(500, 200));
        // this.setBackground(new Color(150, 133, 138, 45));
         this.setLayout(new BorderLayout());
-        this.setVisible(true);
 
         //set InfoView Panel
         //set JLabel for conterning text

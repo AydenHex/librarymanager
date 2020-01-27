@@ -3,6 +3,7 @@ package com.tennoayden.app.gui.controllers;
 import com.tennoayden.app.business.models.Bibliotheque;
 import com.tennoayden.app.business.models.Filtre;
 import com.tennoayden.app.business.others.WordGenerator;
+import com.tennoayden.app.business.services.AuthService;
 import com.tennoayden.app.business.services.BibliothequeService;
 import com.tennoayden.app.business.services.ConfigService;
 import com.tennoayden.app.gui.models.InfoModel;
@@ -10,6 +11,8 @@ import com.tennoayden.app.gui.models.TableModel;
 import com.tennoayden.app.gui.views.FormView;
 import com.tennoayden.app.gui.views.HomeView;
 import com.tennoayden.app.gui.views.InfoView;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import javax.xml.bind.JAXBException;
@@ -21,6 +24,9 @@ import java.io.IOException;
  * The type Home controller.
  */
 public class HomeController {
+
+    private static final Logger logger = Logger.getLogger(FormController.class);
+
     /**
      * The View.
      */
@@ -146,6 +152,12 @@ public class HomeController {
                 }
             }
         });
+
+        // Authorization code
+        if (!AuthService.getInstance().currentUser.getRole().equals("admin")) {
+            view.getEditionAjouterLivre().setEnabled(false);
+            view.getDeleteItem().setEnabled(false);
+        }
     }
 
     /**
@@ -220,6 +232,7 @@ public class HomeController {
         JFileChooser choix = new JFileChooser();
         if(choix.showOpenDialog(null)==JFileChooser.APPROVE_OPTION) {
             new WordGenerator(choix.getSelectedFile().getAbsolutePath());
+            logger.log(Level.INFO, String.format("The user %s exported the library", AuthService.getInstance().currentUser.getUsername()));
         }
     }
 
@@ -259,10 +272,12 @@ public class HomeController {
                 "Confirmation",
                 JOptionPane.YES_NO_OPTION);
         if (n == 0) {
+            String bookName = BibliothequeService.getInstance().bibliotheque.getLivre().get(view.getTable().getSelectedRow()).getTitre();
             BibliothequeService.getInstance().bibliotheque.getLivre().
                     remove(view.getTable().getSelectedRow());
             reloadTable();
             ConfigService.getInstance().modification = true;
+            logger.log(Level.INFO, String.format("The user %s has deleted the book : %s", AuthService.getInstance().currentUser.getUsername(), bookName));
         }
     }
 
