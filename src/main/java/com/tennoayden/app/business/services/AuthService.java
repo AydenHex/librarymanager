@@ -59,4 +59,7 @@ public class AuthService {
         return false;
     }
 
+    public UserManager getUserManager() {
+        return userManager;
+    }
 }

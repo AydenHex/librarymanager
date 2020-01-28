@@ -2,7 +2,8 @@ package com.tennoayden.app.gui.views;
 
 
 
-import com.tennoayden.app.business.models.JTableAdminFormModel;
+import com.tennoayden.app.business.models.UserManager;
+import com.tennoayden.app.gui.models.UserModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +14,7 @@ public class AdminFormView extends JDialog{
     private JComboBox role;
     private JTextField username;
     private JPasswordField password;
-    private JButton appliquer;
+    private JButton ajouterbtn, supprimerbtn;
     private JPanel panAuth, panTable;
     private Font font;
     private GridBagConstraints c;
@@ -30,7 +31,7 @@ public class AdminFormView extends JDialog{
         setLayout(new BorderLayout());
 
         // Set JTable
-        userTable=new JTable(new JTableAdminFormModel());
+        userTable=new JTable(new UserModel());
         // Set common var
         textDimension = new Dimension(500, 500);
         c = new GridBagConstraints();
@@ -48,8 +49,8 @@ public class AdminFormView extends JDialog{
         comboxfield=new JLabel("Rôle :");
 
 
-        appliquer = new JButton("Se connecter");
-
+        ajouterbtn = new JButton("ajouter");
+        supprimerbtn = new JButton("supprimer");
 
         //set name component
         username.setName("username");
@@ -118,10 +119,14 @@ public class AdminFormView extends JDialog{
         role.setPreferredSize(textDimension);
         panAuth.add(role, c);
 
-        // Pos Btn appliquer
+        // Pos Btn ajouter
         c.gridy = 9;
         c.gridx = 2;
-        panAuth.add(appliquer, c);
+        panAuth.add(ajouterbtn, c);
+
+        c.gridy = 9;
+        c.gridx = 1;
+        panAuth.add(supprimerbtn, c);
     }
 
     public String getUsername() {
@@ -132,8 +137,8 @@ public class AdminFormView extends JDialog{
         return this.password.getText();
     }
 
-    public JButton getAppliquer() {
-        return this.appliquer;
+    public JButton getAjouterbtn() {
+        return this.ajouterbtn;
     }
 
 
