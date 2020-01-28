@@ -61,7 +61,18 @@ public class BibliothequeService
      * @throws JAXBException the jaxb exception
      */
     public void loadLivre(String path) throws JAXBException {
-        loadLivreXML(path);
+        JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
+        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+        //reset bibliotheque
+        BibliothequeService.getInstance().bibliotheque.getLivre().clear();
+
+        //We had written this file in marshalling example
+        Bibliotheque emps = (Bibliotheque) jaxbUnmarshaller.unmarshal(new File(path));
+
+        for(Bibliotheque.Livre emp : emps.getLivre())
+        {
+            BibliothequeService.getInstance().bibliotheque.getLivre().add(emp);
+        }
     }
 
     public void loadLivreDB() {
@@ -96,20 +107,6 @@ public class BibliothequeService
 
     }
 
-    public static void loadLivreXML(String path) throws JAXBException {
-        JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
-        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-        //reset bibliotheque
-        BibliothequeService.getInstance().bibliotheque.getLivre().clear();
-
-        //We had written this file in marshalling example
-        Bibliotheque emps = (Bibliotheque) jaxbUnmarshaller.unmarshal(new File(path));
-
-        for(Bibliotheque.Livre emp : emps.getLivre())
-        {
-            BibliothequeService.getInstance().bibliotheque.getLivre().add(emp);
-        }
-    }
 
     /**
      * Sauvegarder livre.

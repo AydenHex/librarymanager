@@ -153,7 +153,8 @@ public class Bibliotheque {
         "rangee",
         "url",
         "aqui",
-        "status"
+        "status",
+        "id"
     })
     public static class Livre {
 
