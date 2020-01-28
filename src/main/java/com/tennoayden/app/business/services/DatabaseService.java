@@ -29,8 +29,7 @@ public class DatabaseService {
     public static void migrate() {
         // SQLite connection string
 
-        // SQL statement for creating an user table
-
+        // SQL Request
         String sqlRoleTable = "CREATE TABLE IF NOT EXISTS Roles(\n" +
                 "    id INTEGER AUTO_INCREMENT PRIMARY KEY,\n" +
                 "    name TEXT NOT NULL)";
@@ -44,7 +43,7 @@ public class DatabaseService {
                 "    FOREIGN KEY (userRole) REFERENCES Roles(id));";
         try (Connection conn = DriverManager.getConnection(DatabaseService.url);
              Statement stmt = conn.createStatement()) {
-            // create a new table
+            // create new tables
             stmt.execute(sqlRoleTable);
             stmt.execute(sqlUserTable);
 
@@ -55,8 +54,9 @@ public class DatabaseService {
         }
     }
     public static void createNewDatabase() {
-
-        String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "//sqlite.db";
+        /**
+         * Allow to create a database.
+         */
 
         try (Connection conn = DriverManager.getConnection(DatabaseService.url)) {
             if (conn != null) {
