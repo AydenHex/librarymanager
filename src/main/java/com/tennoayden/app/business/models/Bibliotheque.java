@@ -153,10 +153,13 @@ public class Bibliotheque {
         "rangee",
         "url",
         "aqui",
-        "status"
+        "status",
+        "id"
     })
     public static class Livre {
 
+        @XmlElement(required = false)
+        protected Integer id;
         /**
          * The Titre.
          */
@@ -365,6 +368,9 @@ public class Bibliotheque {
         public void setStatus(StatusType value) {
             this.status = value;
         }
+
+        public void setId(Integer id) { this.id = id; }
+        public Integer getId() { return this.id; }
 
 
         /**

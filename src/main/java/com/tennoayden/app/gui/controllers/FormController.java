@@ -2,11 +2,13 @@ package com.tennoayden.app.gui.controllers;
 
 import com.tennoayden.app.App;
 import com.tennoayden.app.business.models.Bibliotheque;
+import com.tennoayden.app.business.models.Bibliotheque.Livre;
 import com.tennoayden.app.business.models.ObjectFactory;
 import com.tennoayden.app.business.models.StatusType;
 import com.tennoayden.app.business.services.AuthService;
 import com.tennoayden.app.business.services.BibliothequeService;
 import com.tennoayden.app.business.services.ConfigService;
+import com.tennoayden.app.business.services.DatabaseService;
 import com.tennoayden.app.gui.views.FormView;
 import com.tennoayden.app.gui.views.HomeView;
 import org.apache.log4j.Logger;
@@ -19,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.text.Normalizer;
+import java.sql.*;
 
 /**
  * The type Form controller.
@@ -172,16 +175,47 @@ public class FormController {
             model.setUrl(view.getURL());
 
             if (view.getTitle() == "Ajouter un livre") {
-                BibliothequeService.getInstance().bibliotheque.getLivre().add(model);
-                logger.log(Level.INFO, String.format("The user %s has added the book : %s", AuthService.getInstance().currentUser.getUsername(), model.getTitre()));
+                if (ConfigService.getInstance().database == false) {
+                    BibliothequeService.getInstance().bibliotheque.getLivre().add(model);
+                    logger.log(Level.INFO, String.format("The user %s has added the book : %s", AuthService.getInstance().currentUser.getUsername(), model.getTitre()));
+                } else {
+                    saveBookDB();
+                    BibliothequeService.getInstance().loadLivreDB();
+                    hc.reloadTable();
+                }
             } else {
                 logger.log(Level.INFO, String.format("The user %s has updated the book :%s", AuthService.getInstance().currentUser.getUsername(), model.getTitre()));
             }
             view.dispose();
             hc.reloadTable();
-            ConfigService.getInstance().modification = true;
+            if (ConfigService.getInstance().database != true) {
+                ConfigService.getInstance().modification = true;
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Remplissez-tous les champs du formulaire, s'il vous plait.", "Erreur Formulaire", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void saveBookDB() {
+
+        String sql = "INSERT INTO books(title, author_firstname, author_lastname," +
+                "release, column, row, url, aqui, status, resume) VALUES(?,?,?,?,?,?,?,?,?,?)";
+
+        try (Connection conn = DatabaseService.getInstance().connect()) {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, model.getTitre());
+            pstmt.setString(2, model.getAuteur().getPrenom());
+            pstmt.setString(3, model.getAuteur().getNom());
+            pstmt.setInt(4, model.getParution());
+            pstmt.setShort(5, model.getColonne());
+            pstmt.setShort(6, model.getRangee());
+            pstmt.setString(7, model.getUrl());
+            pstmt.setString(8, model.getAqui());
+            pstmt.setString(9, model.getStatus().toString());
+            pstmt.setString(10, model.getPresentation());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 

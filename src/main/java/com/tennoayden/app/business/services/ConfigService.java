@@ -16,9 +16,12 @@ public class ConfigService {
      */
     public Boolean modification;
 
+    public Boolean database;
+
     private ConfigService() {
         this.path = "";
         this.modification = false;
+        this.database = true;
     }
 
     /**

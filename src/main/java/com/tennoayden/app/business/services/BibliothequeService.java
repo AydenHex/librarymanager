@@ -3,6 +3,7 @@ package com.tennoayden.app.business.services;
 
 import com.tennoayden.app.business.models.Bibliotheque;
 import com.tennoayden.app.business.models.ObjectFactory;
+import com.tennoayden.app.business.models.StatusType;
 import com.tennoayden.app.gui.controllers.FormController;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -12,8 +13,10 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.sql.*;
 
 /**
  * The type Bibliotheque service.
@@ -57,7 +60,7 @@ public class BibliothequeService
      * @param path the path
      * @throws JAXBException the jaxb exception
      */
-    public static void loadLivre(String path) throws JAXBException {
+    public void loadLivre(String path) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
         //reset bibliotheque
@@ -70,8 +73,40 @@ public class BibliothequeService
         {
             BibliothequeService.getInstance().bibliotheque.getLivre().add(emp);
         }
+    }
+
+    public void loadLivreDB() {
+        String sql = "SELECT * FROM books";
+
+        try (Connection conn = DatabaseService.getInstance().connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            // loop through the result set
+            while (rs.next()) {
+                Bibliotheque.Livre book = new Bibliotheque.Livre();
+                book.setId(rs.getInt("id"));
+                book.setTitre(rs.getString("title"));
+                book.setAqui(rs.getString("aqui"));
+                book.setColonne(rs.getShort("column"));
+                book.setRangee(rs.getShort("row"));
+                book.setParution(rs.getInt("release"));
+                book.setStatus(StatusType.valueOf(rs.getString("status")));
+                book.setUrl(rs.getString("url"));
+                book.setPresentation(rs.getString("resume"));
+                Bibliotheque.Livre.Auteur auteur = new Bibliotheque.Livre.Auteur();
+                auteur.setNom(rs.getString("author_lastname"));
+                auteur.setPrenom(rs.getString("author_firstname"));
+                book.setAuteur(auteur);
+
+                this.bibliotheque.getLivre().add(book);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
+
 
     /**
      * Sauvegarder livre.
