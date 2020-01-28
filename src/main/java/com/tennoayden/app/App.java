@@ -34,7 +34,7 @@ public class App
         logger.log(Level.TRACE, "The application is launching...");
         DatabaseService dbService = DatabaseService.getInstance();
         try {
-            as.loadUsers("C:\\Users\\royer\\Documents\\test.xml");
+            as.loadUsers("resources\\test.xml");
             logger.log(Level.TRACE, "Application started");
             LoginController login = new LoginController();
         }

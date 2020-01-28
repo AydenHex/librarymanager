@@ -14,8 +14,9 @@ public class HomeView extends JFrame{
 
     //MenuBar
     private JMenuBar menubar;
-    private JMenu fichier, edition, apropos, database;
-    private JMenuItem ouvrir, exporter, fermer, ajouterLivre, sauvegarder, sauvegarderSous, informations, switchDatabase;
+
+    private JMenu fichier, edition, apropos, administateur, database;
+    private JMenuItem ouvrir, exporter, fermer, ajouterLivre, sauvegarder, sauvegarderSous, informations, ajouterUtilisateur, switchDatabase;
     private JPopupMenu tableMenu;
     private JMenuItem deleteItem;
 
@@ -46,7 +47,9 @@ public class HomeView extends JFrame{
         fichier = new JMenu("Fichier");
         edition = new JMenu("Edition");
         apropos = new JMenu("A propos");
+        administateur = new JMenu("Administateur");
         database = new JMenu("Base de donnée");
+
 
         ouvrir = new JMenuItem("Ouvrir");
         exporter = new JMenuItem("Exporter");
@@ -60,6 +63,8 @@ public class HomeView extends JFrame{
 
         informations = new JMenuItem("Informations");
 
+        ajouterUtilisateur=new JMenuItem("Gestion Utilisateur");
+
         fichier.add(ouvrir);
         fichier.add(exporter);
         fichier.add(fermer);
@@ -67,12 +72,14 @@ public class HomeView extends JFrame{
         edition.add(sauvegarder);
         edition.add(sauvegarderSous);
         apropos.add(informations);
+        administateur.add(ajouterUtilisateur);
         database.add(switchDatabase);
 
         menubar.add(fichier);
         menubar.add(edition);
         menubar.add(database);
         menubar.add(apropos);
+        menubar.add(administateur);
 
         //
 
@@ -184,8 +191,9 @@ public class HomeView extends JFrame{
      */
     public JMenuItem getFermer() { return this.fermer; }
 
+    public JMenuItem getAjouterUtilisateur() { return ajouterUtilisateur;}
+  
     public JMenu getDatabase() { return this.database; }
 
     public JMenuItem getSwitchDatabase() { return this.switchDatabase; }
-
 }

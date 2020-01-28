@@ -8,6 +8,7 @@ import com.tennoayden.app.business.services.BibliothequeService;
 import com.tennoayden.app.business.services.ConfigService;
 import com.tennoayden.app.gui.models.InfoModel;
 import com.tennoayden.app.gui.models.TableModel;
+import com.tennoayden.app.gui.views.AdminFormView;
 import com.tennoayden.app.gui.views.FormView;
 import com.tennoayden.app.gui.views.HomeView;
 import com.tennoayden.app.gui.views.InfoView;
@@ -158,10 +159,22 @@ public class HomeController {
             }
         });
 
+
+        view.getAjouterUtilisateur().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)  {
+                try {
+                    //a remplacer par le controlleur ici pour test view;
+                    AdminFormView test =new AdminFormView();
+                }catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+              
         view.getSwitchDatabase().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 switchDatabase();
+
             }
         });
 
