@@ -1,12 +1,14 @@
 package com.tennoayden.app;
 
 import com.tennoayden.app.business.services.AuthService;
+import com.tennoayden.app.business.services.DatabaseService;
 import com.tennoayden.app.gui.controllers.HomeController;
 import com.tennoayden.app.gui.views.HomeView;
 import com.tennoayden.app.gui.controllers.LoginController;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
+import java.io.File;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -30,13 +32,14 @@ public class App
         //BasicConfigurator.configure();
 
         logger.log(Level.TRACE, "The application is launching...");
+        DatabaseService dbService = DatabaseService.getInstance();
         try {
             as.loadUsers("C:\\Users\\royer\\Documents\\test.xml");
             logger.log(Level.TRACE, "Application started");
             LoginController login = new LoginController();
         }
         catch (JAXBException j) {
-            logger.error("JAXB Exception raised while application starting: " + j);
+            logger.error("JAXB Exception raised while application stasrting: " + j);
         }
         catch (IOException ioe) {
             logger.error("IOException raised while application starting: " + ioe);
