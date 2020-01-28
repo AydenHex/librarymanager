@@ -158,10 +158,18 @@ public class HomeController {
             }
         });
 
+        view.getSwitchDatabase().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchDatabase();
+            }
+        });
+
         // Authorization code
         if (!AuthService.getInstance().currentUser.getRole().equals("admin")) {
             view.getEditionAjouterLivre().setEnabled(false);
             view.getDeleteItem().setEnabled(false);
+            view.getDatabase().setEnabled(false);
         }
     }
 
@@ -285,6 +293,17 @@ public class HomeController {
             ConfigService.getInstance().modification = true;
             logger.log(Level.INFO, String.format("The user %s has deleted the book : %s", AuthService.getInstance().currentUser.getUsername(), bookName));
         }
+    }
+
+    public void switchDatabase() {
+        if (ConfigService.getInstance().modification == true) {
+            JOptionPane.showMessageDialog(view, "Veuillez sauvegarder avant de passer en mode base de donnée !");
+            return;
+        }
+        ConfigService.getInstance().database = true;
+        BibliothequeService.getInstance().bibliotheque.getLivre().clear();
+        BibliothequeService.getInstance().loadLivreDB();
+        reloadTable();
     }
 
     /**

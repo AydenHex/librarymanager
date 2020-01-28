@@ -188,7 +188,9 @@ public class FormController {
             }
             view.dispose();
             hc.reloadTable();
-            ConfigService.getInstance().modification = true;
+            if (ConfigService.getInstance().database != true) {
+                ConfigService.getInstance().modification = true;
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Remplissez-tous les champs du formulaire, s'il vous plait.", "Erreur Formulaire", JOptionPane.ERROR_MESSAGE);
         }

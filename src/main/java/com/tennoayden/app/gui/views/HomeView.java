@@ -14,8 +14,8 @@ public class HomeView extends JFrame{
 
     //MenuBar
     private JMenuBar menubar;
-    private JMenu fichier, edition, apropos;
-    private JMenuItem ouvrir, exporter, fermer, ajouterLivre, sauvegarder, sauvegarderSous, informations;
+    private JMenu fichier, edition, apropos, database;
+    private JMenuItem ouvrir, exporter, fermer, ajouterLivre, sauvegarder, sauvegarderSous, informations, switchDatabase;
     private JPopupMenu tableMenu;
     private JMenuItem deleteItem;
 
@@ -46,6 +46,7 @@ public class HomeView extends JFrame{
         fichier = new JMenu("Fichier");
         edition = new JMenu("Edition");
         apropos = new JMenu("A propos");
+        database = new JMenu("Base de donnée");
 
         ouvrir = new JMenuItem("Ouvrir");
         exporter = new JMenuItem("Exporter");
@@ -55,6 +56,7 @@ public class HomeView extends JFrame{
         sauvegarder = new JMenuItem("Sauvegarder...");
         sauvegarderSous = new JMenuItem("Sauvegarder sous...");
 
+        switchDatabase = new JMenuItem("Se connecter à la BDD");
 
         informations = new JMenuItem("Informations");
 
@@ -65,9 +67,11 @@ public class HomeView extends JFrame{
         edition.add(sauvegarder);
         edition.add(sauvegarderSous);
         apropos.add(informations);
+        database.add(switchDatabase);
 
         menubar.add(fichier);
         menubar.add(edition);
+        menubar.add(database);
         menubar.add(apropos);
 
         //
@@ -179,5 +183,9 @@ public class HomeView extends JFrame{
      * @return the fermer
      */
     public JMenuItem getFermer() { return this.fermer; }
+
+    public JMenu getDatabase() { return this.database; }
+
+    public JMenuItem getSwitchDatabase() { return this.switchDatabase; }
 
 }
