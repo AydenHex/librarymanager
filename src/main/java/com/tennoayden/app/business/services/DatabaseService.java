@@ -6,6 +6,9 @@ import org.apache.log4j.Level;
 import javax.xml.crypto.Data;
 import java.sql.*;
 
+import com.tennoayden.app.business.models.User;
+
+
 public class DatabaseService {
 
     private static DatabaseService single_instance = null;
@@ -26,28 +29,49 @@ public class DatabaseService {
         migrate();
     }
 
+
+    public Connection connect() {
+        // SQLite connection string
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(DatabaseService.url);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return conn;
+    }
+
     public static void migrate() {
         // SQLite connection string
 
         // SQL Request
-        String sqlRoleTable = "CREATE TABLE IF NOT EXISTS Roles(\n" +
-                "    id INTEGER AUTO_INCREMENT PRIMARY KEY,\n" +
-                "    name TEXT NOT NULL)";
-
         String sqlUserTable = "CREATE TABLE IF NOT EXISTS Users(\n" +
                 "    id INTEGER AUTO_INCREMENT PRIMARY KEY,\n" +
                 "    username TEXT NOT NULL,\n" +
                 "    password TEXT NOT NULL,\n" +
                 "    email TEXT UNIQUE,\n" +
-                "    userRole INTEGER NOT NULL,\n" +
-                "    FOREIGN KEY (userRole) REFERENCES Roles(id));";
+                "    role TEXT NOT NULL);";
+
+        String sqlBooksTable = "CREATE TABLE IF NOT EXISTS Books(\n" +
+                " id INTEGER AUTO_INCREMENT PRIMARY KEY,\n" +
+                " title TEXT NOT NULL,\n" +
+                " author_firstname TEXT NOT NULL,\n" +
+                " resume TEST NOT NULL,\n" +
+                " author_lastname TEXT NOT NULL,\n" +
+                " release INTEGER(4) NOT NULL,\n" +
+                " column INTEGER(2) NOT NULL,\n" +
+                " row INTEGER(2) NOT NULL,\n" +
+                " url TEXT,\n" +
+                " aqui TEXT,\n" +
+                " status TEXT);";
         try (Connection conn = DriverManager.getConnection(DatabaseService.url);
              Statement stmt = conn.createStatement()) {
             // create new tables
-            stmt.execute(sqlRoleTable);
             stmt.execute(sqlUserTable);
+            stmt.execute(sqlBooksTable);
 
             logger.log(Level.INFO, String.format("Migration of the database is a success"));
+            stmt.close();
 
         } catch (SQLException e) {
             logger.log(Level.ERROR, String.format("Error raised while migration of database: %s", e));
@@ -66,6 +90,7 @@ public class DatabaseService {
                 logger.log(Level.INFO, "A new database has been created.");
 
             }
+            conn.close();
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

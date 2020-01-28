@@ -15,10 +15,12 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
+import javax.xml.bind.Binder;
 import javax.xml.bind.JAXBException;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.sql.Connection;
 
 /**
  * The type Home controller.
@@ -52,6 +54,9 @@ public class HomeController {
      * Init view.
      */
     public void initView() {
+        if (ConfigService.getInstance().database) {
+            BibliothequeService.getInstance().loadLivreDB();
+        }
         this.reloadTable();
     }
 
@@ -184,7 +189,8 @@ public class HomeController {
         choix.addChoosableFileFilter(filtre);
         if(choix.showOpenDialog(null)==JFileChooser.APPROVE_OPTION) {
             try {
-                BibliothequeService.loadLivre(choix.getSelectedFile().getAbsolutePath());
+                ConfigService.getInstance().database = false;
+                BibliothequeService.getInstance().loadLivre(choix.getSelectedFile().getAbsolutePath());
             } catch (JAXBException e) {
                 JOptionPane.showMessageDialog(this.view, "Veuillez séléctionné un fichier valide !", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
