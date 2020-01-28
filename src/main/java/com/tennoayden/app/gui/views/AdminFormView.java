@@ -2,6 +2,8 @@ package com.tennoayden.app.gui.views;
 
 
 
+import com.tennoayden.app.business.models.JTableAdminFormModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -28,7 +30,7 @@ public class AdminFormView extends JDialog{
         setLayout(new BorderLayout());
 
         // Set JTable
-
+        userTable=new JTable(new JTableAdminFormModel());
         // Set common var
         textDimension = new Dimension(500, 500);
         c = new GridBagConstraints();
@@ -67,7 +69,7 @@ public class AdminFormView extends JDialog{
         panTable=new JPanel();
         panTable.setPreferredSize(new Dimension(500, 280));
         panTable.setBorder((BorderFactory.createTitledBorder("Liste D'utilisateurs")));
-
+        panTable.add(new JScrollPane(userTable), BorderLayout.CENTER);
 
         add(panTable, BorderLayout.NORTH);
         add(panAuth, BorderLayout.SOUTH);
