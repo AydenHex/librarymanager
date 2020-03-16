@@ -75,6 +75,18 @@ public class HomeController {
                     }
                 }
             });
+
+
+            view.getSearchTextfield().addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyReleased(KeyEvent e) {
+                    if (view.getSearchTextfield().getText() = "") {
+                        logger.log(Level.INFO, "Reload table with full data")
+                    } else {
+                        logger.log(Level.INFO, "Load machtes data in table and reload")
+                    }
+                }
+            });
             view.getEditionAjouterLivre().addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     try {
@@ -162,212 +174,215 @@ public class HomeController {
 
         view.getAjouterUtilisateur().addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)  {
+            public void actionPerformed(ActionEvent e) {
                 try {
-                    //a remplacer par le controlleur ici pour test view;
-                    AdminFormView test =new AdminFormView();
-                }catch (IOException ex) {
+                    AdminFormView test = new AdminFormView();
+                } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-              
-        view.getSwitchDatabase().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                switchDatabase();
-
             }
         });
 
-        // Authorization code
-        if (!AuthService.getInstance().currentUser.getRole().equals("admin")) {
-            view.getEditionAjouterLivre().setEnabled(false);
-            view.getDeleteItem().setEnabled(false);
-            view.getDatabase().setEnabled(false);
-        }
-    }
+                view.getSwitchDatabase().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        switchDatabase();
 
-    /**
-     * Reload table.
-     */
-    public void reloadTable() {
-        this.model.fireTableDataChanged();
-        this.view.repaint();
-    }
-
-    /**
-     * Choose xml.
-     *
-     * @throws JAXBException the jaxb exception
-     */
-//Listeners
-    public void chooseXML() throws JAXBException {
-        Filtre filtre = new Filtre(
-                new String[]{".xml"},
-                "Les fichiers XML (.xml)"
-        );
-
-        JFileChooser choix = new JFileChooser("Choisir un fichier");
-        choix.addChoosableFileFilter(filtre);
-        if(choix.showOpenDialog(null)==JFileChooser.APPROVE_OPTION) {
-            try {
-                ConfigService.getInstance().database = false;
-                BibliothequeService.getInstance().loadLivre(choix.getSelectedFile().getAbsolutePath());
-            } catch (JAXBException e) {
-                JOptionPane.showMessageDialog(this.view, "Veuillez séléctionné un fichier valide !", "Erreur", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-        this.reloadTable();
-
-    }
-
-    /**
-     * Sauvegarder sous.
-     *
-     * @throws JAXBException the jaxb exception
-     */
-    public void sauvegarderSous() throws JAXBException {
-        JFileChooser choix = new JFileChooser("Sauvegarder...");
-        if(choix.showOpenDialog(null)==JFileChooser.APPROVE_OPTION) {
-            BibliothequeService.getInstance().sauvegarderLivre(choix.getSelectedFile().getAbsolutePath());
-            JOptionPane.showMessageDialog(this.view,
-                    "Vos modification ont bien été sauvegarger");
-        }
-
-    }
-
-    /**
-     * Sauvegarder.
-     *
-     * @throws JAXBException the jaxb exception
-     */
-    public void sauvegarder() throws JAXBException {
-        if (ConfigService.getInstance().path.isEmpty()) {
-            sauvegarderSous();
-        } else {
-            BibliothequeService.getInstance().sauvegarderLivre(ConfigService.getInstance().path);
-        }
-        JOptionPane.showMessageDialog(null,
-                "Vos modification ont bien été sauvegarger");
-    }
-
-    /**
-     * Exporter.
-     *
-     * @throws Exception the exception
-     */
-    public void exporter() throws Exception {
-        JFileChooser choix = new JFileChooser();
-        if(choix.showOpenDialog(null)==JFileChooser.APPROVE_OPTION) {
-            new WordGenerator(choix.getSelectedFile().getAbsolutePath());
-            logger.log(Level.INFO, String.format("The user %s exported the library", AuthService.getInstance().currentUser.getUsername()));
-        }
-    }
-
-
-    /**
-     * Ajouter livre.
-     *
-     * @throws IOException the io exception
-     */
-    public void ajouterLivre() throws IOException {
-        new FormController("Ajouter un livre", this);
-    }
-
-    /**
-     * Modifier livre.
-     *
-     * @param mouseEvent the mouse event
-     * @throws IOException the io exception
-     */
-    public void modifierLivre(MouseEvent mouseEvent) throws IOException {
-        JTable table =(JTable) mouseEvent.getSource();
-        Point point = mouseEvent.getPoint();
-        int row = table.rowAtPoint(point);
-        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
-            Bibliotheque.Livre livre = BibliothequeService.getInstance().bibliotheque.getLivre().get(table.getSelectedRow());
-            new FormController("Modifier livre", this, livre);
-        }
-    }
-
-    /**
-     * Supprimer livre.
-     */
-    public void supprimerLivre() {
-        int n = JOptionPane.showConfirmDialog(
-                null,
-                "Voulez-vous vraiment supprimer la ligne séléctionnée ?",
-                "Confirmation",
-                JOptionPane.YES_NO_OPTION);
-        if (n == 0) {
-            String bookName = BibliothequeService.getInstance().bibliotheque.getLivre().get(view.getTable().getSelectedRow()).getTitre();
-            BibliothequeService.getInstance().bibliotheque.getLivre().
-                    remove(view.getTable().getSelectedRow());
-            reloadTable();
-            ConfigService.getInstance().modification = true;
-            logger.log(Level.INFO, String.format("The user %s has deleted the book : %s", AuthService.getInstance().currentUser.getUsername(), bookName));
-        }
-    }
-
-    public void switchDatabase() {
-        if (ConfigService.getInstance().modification == true) {
-            JOptionPane.showMessageDialog(view, "Veuillez sauvegarder avant de passer en mode base de donnée !");
-            return;
-        }
-        ConfigService.getInstance().database = true;
-        BibliothequeService.getInstance().bibliotheque.getLivre().clear();
-        BibliothequeService.getInstance().loadLivreDB();
-        reloadTable();
-    }
-
-    /**
-     * Fermer.
-     *
-     * @throws JAXBException the jaxb exception
-     */
-    public void fermer() throws JAXBException {
-        if (ConfigService.getInstance().modification == true) {
-            String[] options = new String[] {"Sauvegarder", "Annuler", "Quitter sans sauvegarder"};
-            int option =  JOptionPane.showOptionDialog(null, "Title", "Message",
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                    null, options, options[0]);
-
-            switch(option) {
-                case 0:
-                    if (ConfigService.getInstance().path.isEmpty()) {
-                        sauvegarderSous();
-                    } else {
-                        sauvegarder();
-                        this.view.dispose();
                     }
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    this.view.dispose();
+                });
+
+                // Authorization code
+                if (!AuthService.getInstance().currentUser.getRole().equals("admin")) {
+                    view.getDeleteItem().setEnabled(false);
+                    view.getDatabase().setEnabled(false);
+                    view.getAdministateur().setEnabled(false);
+                    view.getEdition().setEnabled(false);
+                }
             }
 
-        } else {
-            view.dispose();
+            /**
+             * Reload table.
+             */
+            public void reloadTable() {
+                this.model.fireTableDataChanged();
+                this.view.repaint();
+            }
+
+            /**
+             * Choose xml.
+             *
+             * @throws JAXBException the jaxb exception
+             */
+//Listeners
+            public void chooseXML() throws JAXBException {
+                Filtre filtre = new Filtre(
+                        new String[]{".xml"},
+                        "Les fichiers XML (.xml)"
+                );
+
+                JFileChooser choix = new JFileChooser("Choisir un fichier");
+                choix.addChoosableFileFilter(filtre);
+                if (choix.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        ConfigService.getInstance().database = false;
+                        BibliothequeService.getInstance().loadLivre(choix.getSelectedFile().getAbsolutePath());
+                    } catch (JAXBException e) {
+                        JOptionPane.showMessageDialog(this.view, "Veuillez séléctionné un fichier valide !", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                this.reloadTable();
+
+            }
+
+            /**
+             * Sauvegarder sous.
+             *
+             * @throws JAXBException the jaxb exception
+             */
+            public void sauvegarderSous() throws JAXBException {
+                JFileChooser choix = new JFileChooser("Sauvegarder...");
+                if (choix.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    BibliothequeService.getInstance().sauvegarderLivre(choix.getSelectedFile().getAbsolutePath());
+                    JOptionPane.showMessageDialog(this.view,
+                            "Vos modification ont bien été sauvegarger");
+                }
+
+            }
+
+            /**
+             * Sauvegarder.
+             *
+             * @throws JAXBException the jaxb exception
+             */
+            public void sauvegarder() throws JAXBException {
+                if (ConfigService.getInstance().path.isEmpty()) {
+                    sauvegarderSous();
+                } else {
+                    BibliothequeService.getInstance().sauvegarderLivre(ConfigService.getInstance().path);
+                }
+                JOptionPane.showMessageDialog(null,
+                        "Vos modification ont bien été sauvegarger");
+            }
+
+            /**
+             * Exporter.
+             *
+             * @throws Exception the exception
+             */
+            public void exporter() throws Exception {
+                JFileChooser choix = new JFileChooser();
+                if (choix.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    new WordGenerator(choix.getSelectedFile().getAbsolutePath());
+                    logger.log(Level.INFO, String.format("The user %s exported the library", AuthService.getInstance().currentUser.getUsername()));
+                }
+            }
+
+
+            /**
+             * Ajouter livre.
+             *
+             * @throws IOException the io exception
+             */
+            public void ajouterLivre() throws IOException {
+                new FormController("Ajouter un livre", this);
+            }
+
+            /**
+             * Modifier livre.
+             *
+             * @param mouseEvent the mouse event
+             * @throws IOException the io exception
+             */
+            public void modifierLivre(MouseEvent mouseEvent) throws IOException {
+                JTable table = (JTable) mouseEvent.getSource();
+                Point point = mouseEvent.getPoint();
+                int row = table.rowAtPoint(point);
+                if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                    Bibliotheque.Livre livre = BibliothequeService.getInstance().bibliotheque.getLivre().get(table.getSelectedRow());
+                    new FormController("Modifier livre", this, livre);
+                }
+            }
+
+            /**
+             * Supprimer livre.
+             */
+            public void supprimerLivre() {
+                int n = JOptionPane.showConfirmDialog(
+                        null,
+                        "Voulez-vous vraiment supprimer la ligne séléctionnée ?",
+                        "Confirmation",
+                        JOptionPane.YES_NO_OPTION);
+                if (n == 0) {
+                    String bookName = BibliothequeService.getInstance().bibliotheque.getLivre().get(view.getTable().getSelectedRow()).getTitre();
+                    BibliothequeService.getInstance().bibliotheque.getLivre().
+                            remove(view.getTable().getSelectedRow());
+                    reloadTable();
+                    ConfigService.getInstance().modification = true;
+                    logger.log(Level.INFO, String.format("The user %s has deleted the book : %s", AuthService.getInstance().currentUser.getUsername(), bookName));
+                }
+            }
+
+            public void switchDatabase() {
+                if (ConfigService.getInstance().modification == true) {
+                    JOptionPane.showMessageDialog(view, "Veuillez sauvegarder avant de passer en mode base de donnée !");
+                    return;
+                }
+                ConfigService.getInstance().database = true;
+                BibliothequeService.getInstance().bibliotheque.getLivre().clear();
+                BibliothequeService.getInstance().loadLivreDB();
+                reloadTable();
+            }
+
+            /**
+             * Fermer.
+             *
+             * @throws JAXBException the jaxb exception
+             */
+            public void fermer() throws JAXBException {
+                if (ConfigService.getInstance().modification == true) {
+                    String[] options = new String[]{"Sauvegarder", "Annuler", "Quitter sans sauvegarder"};
+                    int option = JOptionPane.showOptionDialog(null, "Title", "Message",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                            null, options, options[0]);
+
+                    switch (option) {
+                        case 0:
+                            if (ConfigService.getInstance().path.isEmpty()) {
+                                sauvegarderSous();
+                            } else {
+                                sauvegarder();
+                                this.view.dispose();
+                            }
+                            break;
+                        case 1:
+                            break;
+                        case 2:
+                            this.view.dispose();
+                    }
+
+                } else {
+                    view.dispose();
+                }
+            }
+
+            /**
+             * Gets view.
+             *
+             * @return the view
+             */
+            public HomeView getView() {
+                return this.view;
+            }
+
+            /**
+             * Information.
+             *
+             * @throws IOException the io exception
+             */
+            public void information() throws IOException {
+                new InfoControler(new InfoModel(), new InfoView("Fenetre d'informations"), this);
+            }
         }
-    }
 
-    /**
-     * Gets view.
-     *
-     * @return the view
-     */
-    public HomeView getView() {
-        return this.view;
-    }
 
-    /**
-     * Information.
-     *
-     * @throws IOException the io exception
-     */
-    public void information() throws IOException {
-        new InfoControler(new InfoModel(), new InfoView("Fenetre d'informations"), this);
-    }
-
-}
 

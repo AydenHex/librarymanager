@@ -20,6 +20,10 @@ public class HomeView extends JFrame{
     private JPopupMenu tableMenu;
     private JMenuItem deleteItem;
 
+    private JPanel searchFrame;
+    private JLabel labelSearch;
+    private JTextField textfieldSearch;
+
     //Table
     private JPanel panTable;
     private JTable jTable;
@@ -38,6 +42,7 @@ public class HomeView extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
         setVisible(true);
         setPreferredSize(new Dimension(1000, 500));
 
@@ -60,7 +65,6 @@ public class HomeView extends JFrame{
         sauvegarderSous = new JMenuItem("Sauvegarder sous...");
 
         switchDatabase = new JMenuItem("Se connecter à la BDD");
-
         informations = new JMenuItem("Informations");
 
         ajouterUtilisateur=new JMenuItem("Gestion Utilisateur");
@@ -78,10 +82,14 @@ public class HomeView extends JFrame{
         menubar.add(fichier);
         menubar.add(edition);
         menubar.add(database);
-        menubar.add(apropos);
         menubar.add(administateur);
+        menubar.add(apropos);
 
-        //
+
+        // set JTextField
+        searchFrame = new JPanel();
+        labelSearch = new JLabel("Recherche : ");
+        textfieldSearch = new JTextField(50);
 
         setJMenuBar(menubar);
 
@@ -100,7 +108,7 @@ public class HomeView extends JFrame{
         panTable.setVisible(true);
         jTable.setComponentPopupMenu(tableMenu);
         jTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        jScrollPane.setPreferredSize(new Dimension(1000, 500));
+        jScrollPane.setPreferredSize(new Dimension(1000, 380));
 
         //change width table
         TableColumnModel tcm = jTable.getColumnModel();
@@ -113,8 +121,11 @@ public class HomeView extends JFrame{
         tcm.getColumn(6).setPreferredWidth(5);
 
 
-        add(panTable);
+        add(panTable, BorderLayout.NORTH);
 
+        searchFrame.add(labelSearch);
+        searchFrame.add(textfieldSearch);
+        add(searchFrame, BorderLayout.SOUTH);
 
         pack();
 
@@ -192,8 +203,14 @@ public class HomeView extends JFrame{
     public JMenuItem getFermer() { return this.fermer; }
 
     public JMenuItem getAjouterUtilisateur() { return ajouterUtilisateur;}
+
+    public JMenu getAdministateur() { return  administateur; }
   
     public JMenu getDatabase() { return this.database; }
 
     public JMenuItem getSwitchDatabase() { return this.switchDatabase; }
+
+    public JMenu getEdition() { return this.edition; }
+
+    public JTextField getSearchTextfield() { return this.textfieldSearch; }
 }
