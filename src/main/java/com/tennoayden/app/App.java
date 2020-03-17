@@ -1,18 +1,15 @@
 package com.tennoayden.app;
 
-import com.tennoayden.app.business.services.AuthService;
+import com.tennoayden.app.business.services.UserService;
 import com.tennoayden.app.business.services.DatabaseService;
-import com.tennoayden.app.gui.controllers.HomeController;
-import com.tennoayden.app.gui.views.HomeView;
 import com.tennoayden.app.gui.controllers.LoginController;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
-import java.io.File;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.apache.log4j.BasicConfigurator;
+
 /**
  * Hello world!
  */
@@ -28,7 +25,7 @@ public class App
     {
         // Test
         //HomeController home = new HomeController("Gestion de ma Bibiliotheque");
-        AuthService as = AuthService.getInstance();
+        UserService as = UserService.getInstance();
         //BasicConfigurator.configure();
 
         logger.log(Level.TRACE, "The application is launching...");

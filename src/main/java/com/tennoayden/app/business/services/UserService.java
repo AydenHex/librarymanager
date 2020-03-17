@@ -1,35 +1,36 @@
 package com.tennoayden.app.business.services;
 
+import com.tennoayden.app.business.models.Bibliotheque;
 import com.tennoayden.app.business.models.ObjectFactory;
 import com.tennoayden.app.business.models.User;
 import com.tennoayden.app.business.models.UserManager;
-import com.tennoayden.app.gui.controllers.FormController;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Level;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 
-public class AuthService {
+public class UserService {
 
-    private static final Logger logger = Logger.getLogger(AuthService.class);
+    private static final Logger logger = Logger.getLogger(UserService.class);
 
-    private static AuthService single_instance = null;
+    private static UserService single_instance = null;
 
     public UserManager userManager;
     public User currentUser;
     private ObjectFactory of;
 
-    private AuthService() {
+    private UserService() {
         of = new ObjectFactory();
         userManager = of.createUserManager();
     }
 
-    public static AuthService getInstance() {
+    public static UserService getInstance() {
         if (single_instance == null)
-            single_instance = new AuthService();
+            single_instance = new UserService();
 
         return single_instance;
     }
@@ -38,21 +39,33 @@ public class AuthService {
         JAXBContext jaxbContext = JAXBContext.newInstance(UserManager.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
-        AuthService.getInstance().userManager.getUser().clear();
+        UserService.getInstance().userManager.getUser().clear();
 
         //We had written this file in marshalling example
         UserManager emps = (UserManager) jaxbUnmarshaller.unmarshal(new File(path));
 
         for(User emp : emps.getUser()) {
-            AuthService.getInstance().userManager.getUser().add(emp);
+            UserService.getInstance().userManager.getUser().add(emp);
         }
     }
 
+    public void saveUsers(String path) throws JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(UserManager.class);
+        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+        //Marshal the employees list in file
+        jaxbMarshaller.marshal(this.userManager, new File(path));
+
+        logger.log(Level.INFO, String.format("The user list has been saved !"));
+    }
+
     public static boolean authentificate(String username, String password) {
-        for (User user : AuthService.getInstance().userManager.getUser()) {
+        for (User user : UserService.getInstance().userManager.getUser()) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                AuthService.getInstance().currentUser = user;
-                logger.log(Level.INFO, String.format("%s connected", AuthService.getInstance().currentUser.getUsername()));
+                UserService.getInstance().currentUser = user;
+                logger.log(Level.INFO, String.format("%s connected", UserService.getInstance().currentUser.getUsername()));
                 return true;
             }
         }

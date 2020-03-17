@@ -3,7 +3,7 @@ package com.tennoayden.app.gui.controllers;
 import com.tennoayden.app.business.models.Bibliotheque;
 import com.tennoayden.app.business.models.Filtre;
 import com.tennoayden.app.business.others.WordGenerator;
-import com.tennoayden.app.business.services.AuthService;
+import com.tennoayden.app.business.services.UserService;
 import com.tennoayden.app.business.services.BibliothequeService;
 import com.tennoayden.app.business.services.ConfigService;
 import com.tennoayden.app.gui.models.InfoModel;
@@ -19,8 +19,6 @@ import javax.xml.bind.JAXBException;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * The type Home controller.
@@ -176,7 +174,7 @@ public class HomeController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    AdminFormView test = new AdminFormView();
+                    UsersController usersController = new UsersController();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -192,7 +190,7 @@ public class HomeController {
                 });
 
                 // Authorization code
-                if (!AuthService.getInstance().currentUser.getRole().equals("admin")) {
+                if (!UserService.getInstance().currentUser.getRole().equals("admin")) {
                     view.getDeleteItem().setEnabled(false);
                     view.getDatabase().setEnabled(false);
                     view.getAdministateur().setEnabled(false);
@@ -273,7 +271,7 @@ public class HomeController {
                 JFileChooser choix = new JFileChooser();
                 if (choix.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                     new WordGenerator(choix.getSelectedFile().getAbsolutePath());
-                    logger.log(Level.INFO, String.format("The user %s exported the library", AuthService.getInstance().currentUser.getUsername()));
+                    logger.log(Level.INFO, String.format("The user %s exported the library", UserService.getInstance().currentUser.getUsername()));
                 }
             }
 
@@ -318,7 +316,7 @@ public class HomeController {
                             remove(view.getTable().getSelectedRow());
                     reloadTable();
                     ConfigService.getInstance().modification = true;
-                    logger.log(Level.INFO, String.format("The user %s has deleted the book : %s", AuthService.getInstance().currentUser.getUsername(), bookName));
+                    logger.log(Level.INFO, String.format("The user %s has deleted the book : %s", UserService.getInstance().currentUser.getUsername(), bookName));
                 }
             }
 
