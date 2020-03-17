@@ -115,6 +115,7 @@ public class BibliothequeService
             }
         }
         bibliotheque.setLivre(newLivres);
+        logger.log(Level.INFO, "Search completed");
     }
 
 
