@@ -2,7 +2,7 @@ package com.tennoayden.app.gui.models;
 
 
 import com.tennoayden.app.business.models.UserManager;
-import com.tennoayden.app.business.services.AuthService;
+import com.tennoayden.app.business.services.UserService;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -15,7 +15,7 @@ public class UserModel extends AbstractTableModel {
     public UserModel()
     {
         super();
-        this.userManager = AuthService.getInstance().userManager;
+        this.userManager = UserService.getInstance().userManager;
     }
 
     @Override

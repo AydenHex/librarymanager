@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <userManager>
     <user>
         <username>admin</username>
@@ -8,5 +9,10 @@
         <username>user</username>
         <password>user</password>
         <role>user</role>
+    </user>
+    <user>
+        <username>test</username>
+        <password>test</password>
+        <role>admin</role>
     </user>
 </userManager>

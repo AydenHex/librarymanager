@@ -22,7 +22,7 @@ public class AdminFormView extends JDialog{
     private JTable  userTable;
     String [] roles ={"admin","user"};
 
-    public AdminFormView() throws IOException {
+    public AdminFormView(UserModel model) throws IOException {
 
         //about the main windows
         setResizable(false);
@@ -31,7 +31,7 @@ public class AdminFormView extends JDialog{
         setLayout(new BorderLayout());
 
         // Set JTable
-        userTable=new JTable(new UserModel());
+        userTable=new JTable(model);
         // Set common var
         textDimension = new Dimension(500, 500);
         c = new GridBagConstraints();
@@ -129,19 +129,19 @@ public class AdminFormView extends JDialog{
         panAuth.add(supprimerbtn, c);
     }
 
-    public String getUsername() {
-        return this.username.getText();
+    public JTextField getUsername() {
+        return this.username;
     }
 
-    public String getPassword() {
-        return this.password.getText();
+    public JTextField getPassword() {
+        return this.password;
     }
 
     public JButton getAjouterbtn() {
         return this.ajouterbtn;
     }
 
-
+    public JComboBox getRole() { return this.role; }
 
 
 }
