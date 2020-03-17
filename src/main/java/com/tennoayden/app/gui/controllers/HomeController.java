@@ -9,19 +9,18 @@ import com.tennoayden.app.business.services.ConfigService;
 import com.tennoayden.app.gui.models.InfoModel;
 import com.tennoayden.app.gui.models.TableModel;
 import com.tennoayden.app.gui.views.AdminFormView;
-import com.tennoayden.app.gui.views.FormView;
 import com.tennoayden.app.gui.views.HomeView;
 import com.tennoayden.app.gui.views.InfoView;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
-import javax.xml.bind.Binder;
 import javax.xml.bind.JAXBException;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-import java.sql.Connection;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * The type Home controller.
@@ -77,14 +76,15 @@ public class HomeController {
             });
 
 
-            view.getSearchTextfield().addKeyListener(new KeyAdapter() {
+            view.getButtonSearch().addActionListener(new ActionListener() {
                 @Override
-                public void keyReleased(KeyEvent e) {
-                    if (view.getSearchTextfield().getText() = "") {
-                        logger.log(Level.INFO, "Reload table with full data")
+                public void actionPerformed(ActionEvent e) {
+                    if (view.getSearchTextfield().getText().isEmpty() || view.getSearchTextfield().getText().trim().isEmpty()) {
+                        BibliothequeService.getInstance().loadLivreDB();
                     } else {
-                        logger.log(Level.INFO, "Load machtes data in table and reload")
+                       BibliothequeService.getInstance().searchInLivres(view.getSearchTextfield().getText());
                     }
+                    reloadTable();
                 }
             });
             view.getEditionAjouterLivre().addActionListener(new ActionListener() {

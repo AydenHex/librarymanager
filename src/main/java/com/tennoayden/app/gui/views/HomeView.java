@@ -23,6 +23,7 @@ public class HomeView extends JFrame{
     private JPanel searchFrame;
     private JLabel labelSearch;
     private JTextField textfieldSearch;
+    private JButton startSearch;
 
     //Table
     private JPanel panTable;
@@ -90,6 +91,7 @@ public class HomeView extends JFrame{
         searchFrame = new JPanel();
         labelSearch = new JLabel("Recherche : ");
         textfieldSearch = new JTextField(50);
+        startSearch = new JButton("Rechercher");
 
         setJMenuBar(menubar);
 
@@ -125,6 +127,7 @@ public class HomeView extends JFrame{
 
         searchFrame.add(labelSearch);
         searchFrame.add(textfieldSearch);
+        searchFrame.add(startSearch);
         add(searchFrame, BorderLayout.SOUTH);
 
         pack();
@@ -213,4 +216,6 @@ public class HomeView extends JFrame{
     public JMenu getEdition() { return this.edition; }
 
     public JTextField getSearchTextfield() { return this.textfieldSearch; }
+
+    public JButton getButtonSearch() { return this.startSearch; }
 }

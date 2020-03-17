@@ -107,6 +107,16 @@ public class BibliothequeService
 
     }
 
+    public void searchInLivres(String substring) {
+        ArrayList<Bibliotheque.Livre> newLivres = new ArrayList<Bibliotheque.Livre>();
+        for (Bibliotheque.Livre l : bibliotheque.getLivre()) {
+            if (l.getTitre().contains(substring)) {
+                newLivres.add(l);
+            }
+        }
+        bibliotheque.setLivre(newLivres);
+    }
+
 
     /**
      * Sauvegarder livre.

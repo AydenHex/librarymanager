@@ -106,6 +106,9 @@ public class Bibliotheque {
         return this.livre;
     }
 
+    public void setLivre(List<Livre> newList) {
+        this.livre = newList;
+    }
 
     /**
      * <p>Classe Java pour anonymous complex type.
