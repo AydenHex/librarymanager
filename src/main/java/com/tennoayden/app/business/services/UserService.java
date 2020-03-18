@@ -61,6 +61,21 @@ public class UserService {
         logger.log(Level.INFO, String.format("The user list has been saved !"));
     }
 
+    /**
+     *
+     * @param email
+     * @return True if the email already exist
+     */
+    public Boolean verifyEmail(String email) {
+        for (User user : userManager.getUser()) {
+            System.out.println(user.getEmail()  + "=" + email);
+            if (user.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static boolean authentificate(String username, String password) {
         for (User user : UserService.getInstance().userManager.getUser()) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {

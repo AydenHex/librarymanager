@@ -40,7 +40,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "username",
     "password",
-    "role"
+    "role",
+    "email"
 })
 @XmlRootElement(name = "user")
 public class User {
@@ -51,6 +52,8 @@ public class User {
     protected String password;
     @XmlElement(required = true)
     protected String role;
+    @XmlElement(required = true)
+    protected String email;
 
     /**
      * Obtient la valeur de la propri�t� username.
@@ -124,4 +127,9 @@ public class User {
         this.role = value;
     }
 
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

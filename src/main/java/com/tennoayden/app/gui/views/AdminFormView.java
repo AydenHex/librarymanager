@@ -10,9 +10,9 @@ import java.awt.*;
 import java.io.IOException;
 
 public class AdminFormView extends JDialog{
-    private JLabel usernameLabel, passwordLabel, comboxfield;
+    private JLabel usernameLabel, passwordLabel, comboxfield, emailLabel;
     private JComboBox role;
-    private JTextField username;
+    private JTextField username, email;
     private JPasswordField password;
     private JButton ajouterbtn, supprimerbtn;
     private JPanel panAuth, panTable;
@@ -42,6 +42,10 @@ public class AdminFormView extends JDialog{
         username = new JTextField();
         passwordLabel = new JLabel("Mot de passe :");
         password = new JPasswordField();
+
+        // Set JTextfield and JLabel for email
+        emailLabel = new JLabel("Email :");
+        email = new JTextField();
 
         // Set JComboBox
         role= new JComboBox(roles);
@@ -108,9 +112,20 @@ public class AdminFormView extends JDialog{
         password.setPreferredSize(textDimension);
         panAuth.add(password, c);
 
-        // Pos JCombo role
+        // Pos for email part form
         c.gridx = 0;
         c.gridy = 2;
+        c.anchor = GridBagConstraints.LAST_LINE_END;
+        emailLabel.setFont(font);
+        panAuth.add(emailLabel, c);
+        c.gridx = 1;
+        c.anchor = GridBagConstraints.FIRST_LINE_START;
+        email.setPreferredSize(textDimension);
+        panAuth.add(email, c);
+
+        // Pos JCombo role
+        c.gridx = 0;
+        c.gridy = 3;
         c.anchor = GridBagConstraints.LAST_LINE_END;
         comboxfield.setFont(font);
         panAuth.add(comboxfield, c);
@@ -142,6 +157,8 @@ public class AdminFormView extends JDialog{
     }
 
     public JComboBox getRole() { return this.role; }
+
+    public JTextField getEmail() { return this.email; }
 
 
 }

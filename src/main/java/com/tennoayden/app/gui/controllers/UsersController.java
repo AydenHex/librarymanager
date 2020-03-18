@@ -1,5 +1,6 @@
 package com.tennoayden.app.gui.controllers;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.tennoayden.app.business.models.User;
 import com.tennoayden.app.business.models.UserManager;
 import com.tennoayden.app.business.services.UserService;
@@ -8,10 +9,12 @@ import com.tennoayden.app.gui.views.AdminFormView;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
+import javax.swing.*;
 import javax.xml.bind.JAXBException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.regex.*;
 
 public class UsersController {
     private static final Logger logger = Logger.getLogger(UserService.class);
@@ -29,25 +32,35 @@ public class UsersController {
         view.getAjouterbtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Create user object
-                User user = new User();
-                user.setUsername(view.getUsername().getText());
-                user.setPassword(view.getPassword().getText());
-                user.setRole(view.getRole().getSelectedItem().toString());
+                // Verification for the mail (REGEX + Unique)
+                Pattern pattern = Pattern.compile("^(.+)@(.+)$");
+                String email = view.getEmail().getText();
 
-                // Add user to UserList
-                UserService.getInstance().userManager.getUser().add(user);
+                if (pattern.matcher(email).matches() && !UserService.getInstance().verifyEmail(email)) {
+                    // Create user object
+                    User user = new User();
+                    user.setUsername(view.getUsername().getText());
+                    user.setPassword(view.getPassword().getText());
+                    user.setRole(view.getRole().getSelectedItem().toString());
 
-                // Save new user list
-                try {
-                    UserService.getInstance().saveUsers("resources\\users.xml");
-                    logger.log(Level.INFO, "User successfuly created");
-                } catch (Exception exception){
-                    logger.log(Level.INFO, "Can't save users: " + exception);
+                    // Add user to UserList
+                    UserService.getInstance().userManager.getUser().add(user);
+
+                    // Save new user list
+                    try {
+                        UserService.getInstance().saveUsers("resources\\users.xml");
+                        logger.log(Level.INFO, "User successfuly created");
+                    } catch (Exception exception){
+                        logger.log(Level.INFO, "Can't save users: " + exception);
+                    }
+
+                    // and reload GUI
+                    reloadTable();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Cet email existe déjà dans la base de donnée des utilisateur !");
                 }
 
-                // and reload GUI
-                reloadTable();
+
 
             }
         });

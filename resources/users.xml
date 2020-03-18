@@ -4,15 +4,18 @@
         <username>admin</username>
         <password>admin</password>
         <role>admin</role>
+        <email>admin@admin.fr</email>
     </user>
     <user>
         <username>user</username>
         <password>user</password>
         <role>user</role>
+        <email>user@user.fr</email>
     </user>
     <user>
         <username>test</username>
         <password>test</password>
         <role>admin</role>
+        <email>test@test.fr</email>
     </user>
 </userManager>
