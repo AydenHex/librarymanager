@@ -10,16 +10,18 @@ import java.awt.*;
 import java.io.IOException;
 
 public class AdminFormView extends JDialog{
-    private JLabel usernameLabel, passwordLabel, comboxfield;
+    private JLabel usernameLabel, passwordLabel, comboxfield, emailLabel;
     private JComboBox role;
-    private JTextField username;
+    private JTextField username, email;
     private JPasswordField password;
-    private JButton ajouterbtn, supprimerbtn;
+    private JButton ajouterbtn;
     private JPanel panAuth, panTable;
     private Font font;
     private GridBagConstraints c;
     private Dimension textDimension;
     private JTable  userTable;
+    private JPopupMenu tableMenu;
+    private JMenuItem deleteItem;
     String [] roles ={"admin","user"};
 
     public AdminFormView(UserModel model) throws IOException {
@@ -37,11 +39,22 @@ public class AdminFormView extends JDialog{
         c = new GridBagConstraints();
         font = new Font("Verdana", Font.PLAIN, 14);
 
+        // delete popup
+        tableMenu = new JPopupMenu();
+        deleteItem = new JMenuItem("Supprimer");
+        tableMenu.add(deleteItem);
+
+        userTable.setComponentPopupMenu(tableMenu);
+
         // Set JTextfield and Jlabel...
         usernameLabel = new JLabel("Username :");
         username = new JTextField();
         passwordLabel = new JLabel("Mot de passe :");
         password = new JPasswordField();
+
+        // Set JTextfield and JLabel for email
+        emailLabel = new JLabel("Email :");
+        email = new JTextField();
 
         // Set JComboBox
         role= new JComboBox(roles);
@@ -50,7 +63,6 @@ public class AdminFormView extends JDialog{
 
 
         ajouterbtn = new JButton("ajouter");
-        supprimerbtn = new JButton("supprimer");
 
         //set name component
         username.setName("username");
@@ -108,9 +120,20 @@ public class AdminFormView extends JDialog{
         password.setPreferredSize(textDimension);
         panAuth.add(password, c);
 
-        // Pos JCombo role
+        // Pos for email part form
         c.gridx = 0;
         c.gridy = 2;
+        c.anchor = GridBagConstraints.LAST_LINE_END;
+        emailLabel.setFont(font);
+        panAuth.add(emailLabel, c);
+        c.gridx = 1;
+        c.anchor = GridBagConstraints.FIRST_LINE_START;
+        email.setPreferredSize(textDimension);
+        panAuth.add(email, c);
+
+        // Pos JCombo role
+        c.gridx = 0;
+        c.gridy = 3;
         c.anchor = GridBagConstraints.LAST_LINE_END;
         comboxfield.setFont(font);
         panAuth.add(comboxfield, c);
@@ -124,9 +147,6 @@ public class AdminFormView extends JDialog{
         c.gridx = 2;
         panAuth.add(ajouterbtn, c);
 
-        c.gridy = 9;
-        c.gridx = 1;
-        panAuth.add(supprimerbtn, c);
     }
 
     public JTextField getUsername() {
@@ -143,5 +163,9 @@ public class AdminFormView extends JDialog{
 
     public JComboBox getRole() { return this.role; }
 
+    public JTextField getEmail() { return this.email; }
 
+    public JTable getUserTable() { return this.userTable; }
+
+    public JMenuItem getDeleteItem() { return this.deleteItem; }
 }
