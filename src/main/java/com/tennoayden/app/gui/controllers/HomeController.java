@@ -138,6 +138,23 @@ public class HomeController {
                 }
             }
         });
+
+        view.getLogout().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (ConfigService.getInstance().modification == true) {
+                        JOptionPane.showMessageDialog(view, "Veuillez sauvegardez vos modification avant de vous déconnecter");
+                    } else {
+                        UserService.getInstance().currentUser = null;
+                        new LoginController();
+                        view.dispose();
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
         view.getSauvegarder().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
