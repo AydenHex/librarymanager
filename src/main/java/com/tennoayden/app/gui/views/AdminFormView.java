@@ -14,12 +14,14 @@ public class AdminFormView extends JDialog{
     private JComboBox role;
     private JTextField username, email;
     private JPasswordField password;
-    private JButton ajouterbtn, supprimerbtn;
+    private JButton ajouterbtn;
     private JPanel panAuth, panTable;
     private Font font;
     private GridBagConstraints c;
     private Dimension textDimension;
     private JTable  userTable;
+    private JPopupMenu tableMenu;
+    private JMenuItem deleteItem;
     String [] roles ={"admin","user"};
 
     public AdminFormView(UserModel model) throws IOException {
@@ -36,6 +38,13 @@ public class AdminFormView extends JDialog{
         textDimension = new Dimension(500, 500);
         c = new GridBagConstraints();
         font = new Font("Verdana", Font.PLAIN, 14);
+
+        // delete popup
+        tableMenu = new JPopupMenu();
+        deleteItem = new JMenuItem("Supprimer");
+        tableMenu.add(deleteItem);
+
+        userTable.setComponentPopupMenu(tableMenu);
 
         // Set JTextfield and Jlabel...
         usernameLabel = new JLabel("Username :");
@@ -54,7 +63,6 @@ public class AdminFormView extends JDialog{
 
 
         ajouterbtn = new JButton("ajouter");
-        supprimerbtn = new JButton("supprimer");
 
         //set name component
         username.setName("username");
@@ -139,9 +147,6 @@ public class AdminFormView extends JDialog{
         c.gridx = 2;
         panAuth.add(ajouterbtn, c);
 
-        c.gridy = 9;
-        c.gridx = 1;
-        panAuth.add(supprimerbtn, c);
     }
 
     public JTextField getUsername() {
@@ -160,5 +165,7 @@ public class AdminFormView extends JDialog{
 
     public JTextField getEmail() { return this.email; }
 
+    public JTable getUserTable() { return this.userTable; }
 
+    public JMenuItem getDeleteItem() { return this.deleteItem; }
 }
