@@ -76,6 +76,7 @@ public class BibliothequeService
     }
 
     public void loadLivreDB() {
+        this.bibliotheque.getLivre().clear();
         String sql = "SELECT * FROM books";
 
         try (Connection conn = DatabaseService.getInstance().connect();
