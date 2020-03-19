@@ -111,7 +111,7 @@ public class UsersController {
         if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
             // change button text
             view.getAjouterbtn().setText("Mettre à jour");
-            
+
             User user = UserService.getInstance().getUserManager().getUser().get(table.getSelectedRow());
 
             // set form and updateMode
