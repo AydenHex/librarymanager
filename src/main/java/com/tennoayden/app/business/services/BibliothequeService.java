@@ -15,8 +15,10 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.sql.*;
+import java.util.List;
 
 /**
  * The type Bibliotheque service.
@@ -154,5 +156,39 @@ public class BibliothequeService
             }
         }
         return col;
+    }
+
+    public void synchro ()
+    {
+        try
+        {
+
+            System.out.println("je suis dans le try");
+           if(!ConfigService.getInstance().database)
+           {
+                System.out.println("je suis dans le if");
+                //List<Bibliotheque.Livre> BookXML = bibliotheque.getLivre();
+               //List<Bibliotheque.Livre> BookDB = bibliotheque.getLivre();
+               ArrayList BookXML= new ArrayList(Arrays.asList(bibliotheque.getLivre()));
+               BibliothequeService.getInstance().loadLivreDB();
+               ArrayList BookDB= new ArrayList(Arrays.asList(bibliotheque.getLivre()));
+
+
+
+                for(int i=0; i !=BookDB.size();i++)
+                {
+                    if(BookXML.get(i)!=BookDB.get(i))
+                    {
+                        BookDB.add(BookXML.get(i));
+                    }
+                }
+           }
+        }
+
+        catch (Exception e)
+        {
+
+        }
+
     }
 }
