@@ -16,7 +16,7 @@ public class HomeView extends JFrame{
     private JMenuBar menubar;
 
     private JMenu fichier, edition, apropos, administateur, database;
-    private JMenuItem ouvrir, exporter, fermer, ajouterLivre, sauvegarder, sauvegarderSous, informations, ajouterUtilisateur, switchDatabase, logout;
+    private JMenuItem ouvrir, exporter, fermer, ajouterLivre, sauvegarder, sauvegarderSous, informations, ajouterUtilisateur, switchDatabase, logout, synchro;
     private JPopupMenu tableMenu;
     private JMenuItem deleteItem;
 
@@ -73,6 +73,8 @@ public class HomeView extends JFrame{
         logout = new JMenuItem("Se déconnecter");
         logout.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
+        synchro = new JMenuItem("Sync");
+
         fichier.add(ouvrir);
         fichier.add(exporter);
         fichier.add(fermer);
@@ -88,6 +90,7 @@ public class HomeView extends JFrame{
         menubar.add(database);
         menubar.add(administateur);
         menubar.add(apropos);
+        menubar.add(synchro);
         menubar.add(logout);
 
 
@@ -224,4 +227,5 @@ public class HomeView extends JFrame{
     public JButton getButtonSearch() { return this.startSearch; }
 
     public JMenuItem getLogout() { return this.logout; }
+    public JMenuItem getSynchro() { return this.synchro; }
 }

@@ -128,7 +128,7 @@ public class HomeController {
                     }
                 }
             });
-        view.getSauvegarderSous().addActionListener(new ActionListener() {
+         view.getSauvegarderSous().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
@@ -138,6 +138,16 @@ public class HomeController {
                 }
             }
         });
+
+        view.getSynchro().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                BibliothequeService.getInstance().synchro();
+
+            }
+        });
+
 
         view.getLogout().addActionListener(new ActionListener() {
             @Override
