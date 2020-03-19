@@ -1,6 +1,5 @@
 package com.tennoayden.app.gui.controllers;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.tennoayden.app.business.models.Bibliotheque;
 import com.tennoayden.app.business.models.User;
 import com.tennoayden.app.business.models.UserManager;

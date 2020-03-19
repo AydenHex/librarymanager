@@ -43,6 +43,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.1.1</version>
                 <configuration>
+                    <source>8</source>
                     <excludePackageNames>com.tennoayden.app.business.models</excludePackageNames>
                 </configuration>
             </plugin>
