@@ -26,6 +26,7 @@ public class LoginView extends JDialog{
 
     public LoginView() throws IOException {
         // Set common var
+        setTitle("Authentification");
         textDimension = new Dimension(100, 20);
         c = new GridBagConstraints();
         font = new Font("Verdana", Font.PLAIN, 14);
