@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element ref="{}username"/>
  *         &lt;element ref="{}password"/>
  *         &lt;element ref="{}role"/>
+ *         &lt;element ref="{}email"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -127,8 +128,15 @@ public class User {
         this.role = value;
     }
 
+    /**
+     *
+     * @return the user email
+     */
     public String getEmail() { return email; }
 
+    /**
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
