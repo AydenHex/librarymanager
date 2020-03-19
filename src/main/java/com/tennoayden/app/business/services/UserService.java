@@ -63,7 +63,7 @@ public class UserService {
 
     /**
      *
-     * @param email
+     * @param email: The email to verify
      * @return True if the email already exist
      */
     public Boolean verifyEmail(String email) {
