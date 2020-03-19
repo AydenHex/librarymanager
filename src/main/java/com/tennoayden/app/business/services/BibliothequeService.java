@@ -158,7 +158,11 @@ public class BibliothequeService
         return col;
     }
 
+<<<<<<< HEAD
     public void synchro ()  //throws IOException
+=======
+    public void synchro ()
+>>>>>>> 8f4eed9d37a02f9be295dcbe2a430bda6b15daf5
     {
         try
         {
@@ -169,12 +173,19 @@ public class BibliothequeService
                 System.out.println("je suis dans le if");
                 //List<Bibliotheque.Livre> BookXML = bibliotheque.getLivre();
                //List<Bibliotheque.Livre> BookDB = bibliotheque.getLivre();
+<<<<<<< HEAD
                ArrayList BookXML= bibliotheque.getLivre();
                BibliothequeService.getInstance().loadLivreDB();
                ArrayList BookDB= new ArrayList(bibliotheque.getLivre());
 
                System.out.println("Deb BookXML : " +BookXML);
                System.out.println("Deb: " +BookDB);
+=======
+               ArrayList BookXML= new ArrayList(Arrays.asList(bibliotheque.getLivre()));
+               BibliothequeService.getInstance().loadLivreDB();
+               ArrayList BookDB= new ArrayList(Arrays.asList(bibliotheque.getLivre()));
+
+>>>>>>> 8f4eed9d37a02f9be295dcbe2a430bda6b15daf5
 
 
                 for(int i=0; i !=BookDB.size();i++)
@@ -183,9 +194,13 @@ public class BibliothequeService
                     {
                         BookDB.add(BookXML.get(i));
                     }
+<<<<<<< HEAD
 
                 }
                System.out.println("fin: " +BookDB);
+=======
+                }
+>>>>>>> 8f4eed9d37a02f9be295dcbe2a430bda6b15daf5
            }
         }
 
