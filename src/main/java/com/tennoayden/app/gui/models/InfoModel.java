@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class InfoModel {
     private String infoVersion="App | ReWork v3.0 | ";
-    private String collaborator="<html><center><strong><U>Artisants developpeurs :</U><strong><br> Quentin Royer<br> Rigaud Louis<br><br> Fait avec <span style='color:red'>❤</span> par la #TeamAydenHexTenno</center><html>";
+    private String collaborator="<html><center><strong><U>Artisants developpeurs :</U><strong><br> Quentin Royer<br> Rigaud Louis<br><br> Fait avec <span style='color:red'><3</span> par la #TeamAydenHexTenno</center><html>";
     private String pageTitre="<html><big><U>Information</U></big></html>";
 
     /**
